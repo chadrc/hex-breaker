@@ -12,10 +12,11 @@ func _physics_process(delta):
 	var v = Vector2(0, 0)
 	if Input.is_action_pressed("ui_right"):
 		v.x += 1
-	
 	if Input.is_action_pressed("ui_left"):
 		v.x -= 1
+	if Input.is_action_pressed("ui_up"):
+		v.y -= 1
+	if Input.is_action_pressed("ui_down"):
+		v.y += 1
 		
-	v = v.normalized() * speed
-		
-	v = move_and_slide(v)
+	v = move_and_slide(v.normalized() * speed)

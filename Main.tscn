@@ -17,6 +17,7 @@ extents = Vector2( 10, 303.147 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
 position = Vector2( 522.528, 471.916 )
+scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
