@@ -1,6 +1,7 @@
 extends Node2D
 
-export (int) var side_padding = 100
+export (int) var side_padding = 50
+export (int) var top_padding = 50
 export (NodePath) var ball_path
 
 onready var base_block = $'Block2'
@@ -33,6 +34,17 @@ func _ready():
 	for i in range(block_count):
 		# generate block board
 		var new_pos = Vector2(first_x + block_width * i, base_block.position.y)
+		var new = base_block.duplicate()
+		ball.connect("body_entered", new, "_on_Ball_body_entered")
+		new.position = new_pos
+		
+		add_child(new)
+		
+	var off_block_count = block_count - 1
+	var off_first = Vector2(first_x, base_block.position.y) + Vector2(1, 0).rotated(deg2rad(-60)) * block_width
+	
+	for i in range(off_block_count):
+		var new_pos = Vector2(off_first.x + block_width * i, off_first.y)
 		var new = base_block.duplicate()
 		ball.connect("body_entered", new, "_on_Ball_body_entered")
 		new.position = new_pos

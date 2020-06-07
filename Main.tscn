@@ -80,7 +80,6 @@ shape = SubResource( 5 )
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource( 7 )
-side_padding = 50
 ball_path = NodePath("../Ball")
 
 [node name="Block2" parent="Board" instance=ExtResource( 1 )]
