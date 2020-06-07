@@ -22,7 +22,7 @@ position = Vector2( 641.587, 621.105 )
 rotation = 0.523599
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 3 )
-ceiling = 150
+sub_amount = 10
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 position = Vector2( 641.58, 331.93 )
@@ -50,6 +50,8 @@ shape = SubResource( 3 )
 position = Vector2( 0, 360 )
 shape = SubResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DeathBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathBox"]
 position = Vector2( 640, 2000 )
 shape = SubResource( 4 )
