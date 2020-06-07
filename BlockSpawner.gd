@@ -39,10 +39,6 @@ func _ready():
 	var block_count = floor(board_width / block_width)
 	var row_count = floor(board_height / additional_height)
 	
-	print(base_block.position.y)
-	print(block_height)
-	print(board_height)
-	
 	var first = Vector2(win_width / 2 - block_width * floor(block_count / 2), base_block.position.y)
 	if int(block_count) % 2 == 0:
 		# add half block width so center is between 2 blocks
@@ -52,7 +48,6 @@ func _ready():
 	var off_block_count = block_count - 1
 	var off_first = Vector2(first.x, base_block.position.y) + Vector2(1, 0).rotated(deg2rad(-60)) * block_width
 	
-	print(row_count)
 	for r in range(row_count):
 		var group = floor(r / 2)
 		var row_first
@@ -75,15 +70,6 @@ func _ready():
 			new.position = new_pos
 			
 			add_child(new)
-		
-	
-#	for i in range(off_block_count):
-#		var new_pos = Vector2(off_first.x + block_width * i, off_first.y)
-#		var new = base_block.duplicate()
-#		ball.connect("body_entered", new, "_on_Ball_body_entered")
-#		new.position = new_pos
-#
-#		add_child(new)
 		
 	# disable and hide base block 
 	base_block.hide()
