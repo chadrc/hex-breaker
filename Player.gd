@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal ball_hit_player
+
 export (int) var ceiling = 200
 export (int) var sub_amount = 50
 export (int) var speed = 500
@@ -29,3 +31,8 @@ func _physics_process(delta):
 		v.y = 0
 		
 	v = move_and_slide(v.normalized() * speed)
+
+
+func _on_Ball_body_entered(body):
+	if body == self:
+		emit_signal("ball_hit_player")

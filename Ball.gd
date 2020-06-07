@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+signal launched
 
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
@@ -20,6 +21,7 @@ func _process(delta):
 	if waiting and Input.is_action_pressed("ui_accept"):
 		linear_velocity = previous_dir * initial_speed
 		waiting = false
+		emit_signal("launched")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

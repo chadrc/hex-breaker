@@ -1,5 +1,8 @@
 extends Node2D
 
+signal all_blocks_destroyed
+signal block_destroyed
+
 export (int) var side_padding = 50
 export (int) var top_padding = 50
 export (NodePath) var ball_path
@@ -7,6 +10,8 @@ export (NodePath) var ball_path
 onready var base_block = $'Block2'
 
 var initial_y
+var total_blocks = 0
+var blocks_destroyed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +53,7 @@ func _ready():
 	var off_block_count = block_count - 1
 	var off_first = Vector2(first.x, base_block.position.y) + Vector2(1, 0).rotated(deg2rad(-60)) * block_width
 	
+	total_blocks = 0
 	for r in range(row_count):
 		var group = floor(r / 2)
 		var row_first
@@ -67,9 +73,11 @@ func _ready():
 			var new_pos = Vector2(row_first.x + block_width * i, row_first.y)
 			var new = base_block.duplicate()
 			ball.connect("body_entered", new, "_on_Ball_body_entered")
+			new.connect("destroyed", self, "on_block_destroyed")
 			new.position = new_pos
 			
 			add_child(new)
+			total_blocks += 1
 		
 	# disable and hide base block 
 	base_block.hide()
@@ -77,6 +85,11 @@ func _ready():
 	base_block.position = Vector2(100000, 0)
 	
 
+func _on_block_destroyed():
+	blocks_destroyed += 1
+	emit_signal("block_destroyed")
+	if blocks_destroyed == total_blocks:
+		emit_signal("all_blocks_destroyed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
