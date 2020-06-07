@@ -55,3 +55,4 @@ shape = SubResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathBox"]
 position = Vector2( 640, 2000 )
 shape = SubResource( 4 )
+[connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]
