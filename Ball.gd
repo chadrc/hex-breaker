@@ -18,6 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
 	if reset:
+		previous_dir = Vector2(0, 1)
 		state.transform = Transform2D(0, original_position)
 		linear_velocity = previous_dir * initial_speed
 		reset = false

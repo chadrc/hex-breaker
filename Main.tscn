@@ -27,6 +27,7 @@ position = Vector2( 640, 660 )
 rotation = 0.523599
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 3 )
+ceiling = 150
 sub_amount = 10
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
