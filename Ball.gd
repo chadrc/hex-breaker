@@ -34,3 +34,8 @@ func _integrate_forces(state):
 func _on_DeathBox_body_entered(body):
 	if body == self:
 		reset = true
+
+
+func _on_Ball_body_entered(body):
+	print()
+	pass # Replace with function body.
