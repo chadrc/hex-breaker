@@ -1,45 +1,55 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.gd" type="Script" id=3]
-
-[sub_resource type="PhysicsMaterial" id=1]
-bounce = 20.0
+[ext_resource path="res://Ball.gd" type="Script" id=4]
+[ext_resource path="res://Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 521.765, 10 )
+extents = Vector2( 800, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 10, 303.147 )
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 2716.02, 1233.25 )
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 522.528, 471.916 )
-scale = Vector2( 0.75, 0.75 )
+position = Vector2( 641.587, 621.105 )
+rotation = 0.523599
+scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 3 )
+ceiling = 150
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
-position = Vector2( 843.087, 157.396 )
-physics_material_override = SubResource( 1 )
+position = Vector2( 641.58, 331.93 )
+physics_material_override = ExtResource( 5 )
+gravity_scale = 0.0
+linear_damp = 0.0
+script = ExtResource( 4 )
+initial_speed = 300
+max_speed = 800
+min_speed = 150
 
 [node name="Bounds" type="RigidBody2D" parent="."]
 mode = 1
 gravity_scale = 0.0
 
 [node name="Ceiling" type="CollisionShape2D" parent="Bounds"]
-position = Vector2( 507.363, 2.3327 )
-shape = SubResource( 2 )
-
-[node name="Floor" type="CollisionShape2D" parent="Bounds"]
-position = Vector2( 510.862, 597.172 )
+position = Vector2( 640, 2.333 )
 shape = SubResource( 2 )
 
 [node name="RightWall" type="CollisionShape2D" parent="Bounds"]
-position = Vector2( 1025.22, 300.919 )
+position = Vector2( 1280, 360 )
 shape = SubResource( 3 )
 
 [node name="LeftWall" type="CollisionShape2D" parent="Bounds"]
-position = Vector2( -2.50098, 304.418 )
+position = Vector2( 0, 360 )
 shape = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 640, 2000 )
+shape = SubResource( 4 )
