@@ -21,14 +21,14 @@ extents = Vector2( 1636.85, 1800.17 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 641.587, 621.105 )
+position = Vector2( 640, 660 )
 rotation = 0.523599
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 3 )
 sub_amount = 10
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
-position = Vector2( 641.58, 331.93 )
+position = Vector2( 640, 450 )
 physics_material_override = ExtResource( 5 )
 gravity_scale = 0.0
 linear_damp = 0.0
