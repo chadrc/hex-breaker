@@ -54,6 +54,7 @@ position = Vector2( 0, 360 )
 shape = SubResource( 3 )
 
 [node name="DeathBox" type="Area2D" parent="."]
+gravity = 0.0
 
 [node name="Bottom" type="CollisionShape2D" parent="DeathBox"]
 position = Vector2( 640, 2000 )
