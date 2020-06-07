@@ -80,11 +80,11 @@ shape = SubResource( 5 )
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource( 7 )
+side_padding = 50
 ball_path = NodePath("../Ball")
 
 [node name="Block2" parent="Board" instance=ExtResource( 1 )]
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 6 )
-[connection signal="body_entered" from="Ball" to="Board/Block2" method="_on_Ball_body_entered"]
 [connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]
