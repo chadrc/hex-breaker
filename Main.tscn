@@ -24,8 +24,6 @@ extents = Vector2( 1636.85, 1800.17 )
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 8 )
 
-[node name="GameTimer" type="Timer" parent="."]
-
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 640, 660 )
 rotation = 0.523599
@@ -87,10 +85,19 @@ shape = SubResource( 5 )
 script = ExtResource( 7 )
 top_padding = 0
 ball_path = NodePath("../Ball")
+block_count_override = 5
 
 [node name="Block2" parent="Board" instance=ExtResource( 1 )]
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 6 )
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 0.001
+[connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="body_entered" from="Ball" to="Player" method="_on_Ball_body_entered"]
+[connection signal="launched" from="Ball" to="." method="_on_Ball_launched"]
+[connection signal="lost" from="Ball" to="." method="_on_Ball_lost"]
 [connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]
+[connection signal="all_blocks_destroyed" from="Board" to="." method="_on_Board_all_blocks_destroyed"]
+[connection signal="block_destroyed" from="Board" to="." method="_on_Board_block_destroyed"]

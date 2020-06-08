@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 signal launched
+signal lost
 
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
@@ -48,4 +49,5 @@ func _integrate_forces(state):
 func _on_DeathBox_body_entered(body):
 	if body == self:
 		reset = true
+		emit_signal("lost")
 

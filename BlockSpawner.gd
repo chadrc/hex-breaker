@@ -7,6 +7,11 @@ export (int) var side_padding = 50
 export (int) var top_padding = 50
 export (NodePath) var ball_path
 
+# for testing with fewer blocks
+# not guaranteed to format correctly 
+# only formats one row
+export (int) var block_count_override = 0
+
 onready var base_block = $'Block2'
 
 var initial_y
@@ -44,6 +49,10 @@ func _ready():
 	var block_count = floor(board_width / block_width)
 	var row_count = floor(board_height / additional_height)
 	
+	if block_count_override > 0:
+		block_count = block_count_override
+		row_count = 1
+	
 	var first = Vector2(win_width / 2 - block_width * floor(block_count / 2), base_block.position.y)
 	if int(block_count) % 2 == 0:
 		# add half block width so center is between 2 blocks
@@ -51,6 +60,9 @@ func _ready():
 		first.x += block_width / 2
 	
 	var off_block_count = block_count - 1
+	if block_count_override > 0:
+		off_block_count = 0
+	
 	var off_first = Vector2(first.x, base_block.position.y) + Vector2(1, 0).rotated(deg2rad(-60)) * block_width
 	
 	total_blocks = 0
@@ -73,7 +85,7 @@ func _ready():
 			var new_pos = Vector2(row_first.x + block_width * i, row_first.y)
 			var new = base_block.duplicate()
 			ball.connect("body_entered", new, "_on_Ball_body_entered")
-			new.connect("destroyed", self, "on_block_destroyed")
+			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
 			
 			add_child(new)
