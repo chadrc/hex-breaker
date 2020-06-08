@@ -1,9 +1,12 @@
 extends CanvasLayer
 
 signal new_game_button_pressed
+signal pause
+signal unpause
 
 onready var Background = $"Background"
-onready var ScorePanel = $"Panel"
+onready var PausePanel = $"PausePanel"
+onready var ScorePanel = $"ScorePanel"
 onready var ComboLabel = $"Panel/ScoreBoard/ComboLabel"
 onready var StreakLabel = $"Panel/ScoreBoard/StreakLabel"
 onready var BallsLabel = $"Panel/ScoreBoard/BallsLabel"
@@ -11,11 +14,21 @@ onready var TimeLabel = $"Panel/ScoreBoard/TimeLabel"
 onready var ScoreLabel = $"Panel/ScoreBoard/ScoreLabel"
 
 var check_input = false
+var paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _process(delta):
 	if check_input and Input.is_action_pressed("ui_accept"):
 		emit_signal("new_game_button_pressed")
+		
+	if Input.is_action_just_pressed("ui_home"):
+		if paused:
+			_unpause()
+		else:
+			paused = true
+			Background.visible = true
+			PausePanel.visible = true
+			emit_signal("pause")
 
 
 func _on_Game_game_end(data):
@@ -39,7 +52,19 @@ func _on_Game_game_start():
 	check_input = false
 	Background.visible = false
 	ScorePanel.visible = false
+	PausePanel.visible = false
 
 
 func _on_NewGameButton_pressed():
 	emit_signal("new_game_button_pressed")
+
+
+func _on_ContinueButton_pressed():
+	_unpause()
+	
+
+func _unpause():
+	paused = false
+	Background.visible = false
+	PausePanel.visible = false
+	emit_signal("unpause")

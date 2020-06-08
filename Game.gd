@@ -1,7 +1,7 @@
 extends Node2D
 
 signal game_start
-signal game_end 
+signal game_end
 
 var playing = false
 var balls_lost = 0
@@ -17,6 +17,7 @@ onready var GameArea = $'GameArea'
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_new_game()
+	
 
 func _new_game():
 	balls_lost = 0
@@ -57,7 +58,7 @@ func _on_GameArea_all_blocks_destroyed():
 	var percent = 1 - clamp(time / (1000 * 60 * 5), 0, 1)
 	score += score * percent
 	
-	GameArea.get_tree().paused = true
+	get_tree().paused = true
 	emit_signal("game_end", {
 		"combo": highest_combo,
 		"streak": highest_streak,
@@ -82,3 +83,10 @@ func _on_GameArea_block_destroyed():
 func _on_UI_new_game_button_pressed():
 	_new_game()
 
+
+func _on_UI_unpause():
+	get_tree().paused = false
+	
+
+func _on_UI_pause():
+	get_tree().paused = true

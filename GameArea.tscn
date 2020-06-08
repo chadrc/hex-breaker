@@ -85,7 +85,6 @@ shape = SubResource( 4 )
 script = ExtResource( 7 )
 top_padding = 0
 ball_path = NodePath("../Ball")
-block_count_override = 5
 
 [node name="Block2" parent="Board" instance=ExtResource( 3 )]
 position = Vector2( 640, 300 )
