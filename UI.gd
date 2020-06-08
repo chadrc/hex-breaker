@@ -10,13 +10,16 @@ onready var BallsLabel = $"Panel/ScoreBoard/BallsLabel"
 onready var TimeLabel = $"Panel/ScoreBoard/TimeLabel"
 onready var ScoreLabel = $"Panel/ScoreBoard/ScoreLabel"
 
+var check_input = false
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _process(delta):
+	if check_input and Input.is_action_pressed("ui_accept"):
+		emit_signal("new_game_button_pressed")
 
 
 func _on_Game_game_end(data):
+	check_input = true
 	Background.visible = true
 	ScorePanel.visible = true
 	
@@ -33,6 +36,7 @@ func _on_Game_game_end(data):
 
 
 func _on_Game_game_start():
+	check_input = false
 	Background.visible = false
 	ScorePanel.visible = false
 
