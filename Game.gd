@@ -81,3 +81,4 @@ func _on_Board_block_destroyed():
 
 func _on_UI_new_game_button_pressed():
 	_new_game()
+

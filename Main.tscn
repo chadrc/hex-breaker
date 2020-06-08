@@ -26,6 +26,7 @@ extents = Vector2( 1636.85, 1800.17 )
 script = ExtResource( 8 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 9 )
 
 [node name="Background" type="ColorRect" parent="UI"]
@@ -38,7 +39,6 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 500.0
@@ -96,10 +96,11 @@ align = 1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 99.5301
-margin_top = 8.23199
-margin_right = -98.4699
-margin_bottom = 28.232
+margin_left = 85.5956
+margin_top = 6.89197
+margin_right = -82.4044
+margin_bottom = 55.892
+button_mask = 7
 text = "New Game"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -128,7 +129,7 @@ linear_damp = 0.0
 script = ExtResource( 4 )
 initial_speed = 300
 max_speed = 800
-min_speed = 150
+min_speed = 200
 
 [node name="Bounds" type="RigidBody2D" parent="GameArea"]
 mode = 1
@@ -177,14 +178,15 @@ block_count_override = 5
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 6 )
-[connection signal="game_end" from="." to="UI" method="_on_Game_game_end"]
 [connection signal="game_end" from="." to="GameArea/Ball" method="_on_Game_game_end"]
+[connection signal="game_end" from="." to="UI" method="_on_Game_game_end"]
 [connection signal="game_end" from="." to="GameArea/Player" method="_on_Game_game_end"]
-[connection signal="game_start" from="." to="UI" method="_on_Game_game_start"]
-[connection signal="game_start" from="." to="GameArea/Board" method="_on_Game_game_start"]
 [connection signal="game_start" from="." to="GameArea/Ball" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="GameArea/Board" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="UI" method="_on_Game_game_start"]
 [connection signal="game_start" from="." to="GameArea/Player" method="_on_Game_game_start"]
 [connection signal="new_game_button_pressed" from="UI" to="." method="_on_UI_new_game_button_pressed"]
+[connection signal="button_down" from="UI/Panel/NewGameButton" to="." method="_on_NewGameButton_button_down"]
 [connection signal="pressed" from="UI/Panel/NewGameButton" to="UI" method="_on_NewGameButton_pressed"]
 [connection signal="ball_hit_player" from="GameArea/Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="body_entered" from="GameArea/Ball" to="GameArea/Player" method="_on_Ball_body_entered"]
