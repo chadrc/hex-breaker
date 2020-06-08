@@ -1,116 +1,22 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Block.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Player.gd" type="Script" id=3]
-[ext_resource path="res://Ball.gd" type="Script" id=4]
-[ext_resource path="res://Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=5]
-[ext_resource path="res://Block.gd" type="Script" id=6]
-[ext_resource path="res://BlockSpawner.gd" type="Script" id=7]
+[ext_resource path="res://GameArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=8]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=9]
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 800, 10 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 10, 400 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 2716.02, 1233.25 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 1636.85, 1800.17 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 8 )
 
 [node name="UI" parent="." instance=ExtResource( 9 )]
 
-[node name="GameTimer" type="Timer" parent="."]
-wait_time = 0.001
-
-[node name="GameArea" type="Node2D" parent="."]
-
-[node name="Player" parent="GameArea" instance=ExtResource( 1 )]
-position = Vector2( 640, 660 )
-rotation = 0.523599
-scale = Vector2( 0.6, 0.6 )
-script = ExtResource( 3 )
-ceiling = 150
-sub_amount = 10
-
-[node name="Ball" parent="GameArea" instance=ExtResource( 2 )]
-position = Vector2( 640, 450 )
-physics_material_override = ExtResource( 5 )
-gravity_scale = 0.0
-contacts_reported = 3
-contact_monitor = true
-linear_damp = 0.0
-script = ExtResource( 4 )
-initial_speed = 300
-max_speed = 800
-min_speed = 200
-
-[node name="Bounds" type="RigidBody2D" parent="GameArea"]
-mode = 1
-gravity_scale = 0.0
-
-[node name="Ceiling" type="CollisionShape2D" parent="GameArea/Bounds"]
-position = Vector2( 640, 2.333 )
-shape = SubResource( 2 )
-
-[node name="RightWall" type="CollisionShape2D" parent="GameArea/Bounds"]
-position = Vector2( 1280, 360 )
-rotation = -0.0174533
-shape = SubResource( 3 )
-
-[node name="LeftWall" type="CollisionShape2D" parent="GameArea/Bounds"]
-position = Vector2( 0, 358.568 )
-rotation = 0.0174533
-shape = SubResource( 3 )
-
-[node name="DeathBox" type="Area2D" parent="GameArea"]
-gravity = 0.0
-
-[node name="Bottom" type="CollisionShape2D" parent="GameArea/DeathBox"]
-position = Vector2( 640, 2000 )
-shape = SubResource( 4 )
-
-[node name="Top" type="CollisionShape2D" parent="GameArea/DeathBox"]
-position = Vector2( 547.946, -1252.57 )
-shape = SubResource( 4 )
-
-[node name="Left" type="CollisionShape2D" parent="GameArea/DeathBox"]
-position = Vector2( -1660.47, 517.874 )
-shape = SubResource( 5 )
-
-[node name="Right" type="CollisionShape2D" parent="GameArea/DeathBox"]
-position = Vector2( 2936.25, 411.593 )
-shape = SubResource( 5 )
-
-[node name="Board" type="Node2D" parent="GameArea"]
-script = ExtResource( 7 )
-top_padding = 0
-ball_path = NodePath("../Ball")
-block_count_override = 5
-
-[node name="Block2" parent="GameArea/Board" instance=ExtResource( 1 )]
-position = Vector2( 640, 300 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 6 )
-[connection signal="game_end" from="." to="GameArea/Player" method="_on_Game_game_end"]
+[node name="GameArea" parent="." instance=ExtResource( 1 )]
 [connection signal="game_end" from="." to="UI" method="_on_Game_game_end"]
-[connection signal="game_end" from="." to="GameArea/Ball" method="_on_Game_game_end"]
-[connection signal="game_start" from="." to="GameArea/Board" method="_on_Game_game_start"]
-[connection signal="game_start" from="." to="GameArea/Player" method="_on_Game_game_start"]
+[connection signal="game_end" from="." to="GameArea" method="_stop"]
 [connection signal="game_start" from="." to="UI" method="_on_Game_game_start"]
-[connection signal="game_start" from="." to="GameArea/Ball" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="GameArea" method="_reset"]
 [connection signal="new_game_button_pressed" from="UI" to="." method="_on_UI_new_game_button_pressed"]
-[connection signal="ball_hit_player" from="GameArea/Player" to="." method="_on_Player_ball_hit_player"]
-[connection signal="body_entered" from="GameArea/Ball" to="GameArea/Player" method="_on_Ball_body_entered"]
-[connection signal="launched" from="GameArea/Ball" to="." method="_on_Ball_launched"]
-[connection signal="lost" from="GameArea/Ball" to="." method="_on_Ball_lost"]
-[connection signal="body_entered" from="GameArea/DeathBox" to="GameArea/Ball" method="_on_DeathBox_body_entered"]
-[connection signal="all_blocks_destroyed" from="GameArea/Board" to="." method="_on_Board_all_blocks_destroyed"]
-[connection signal="block_destroyed" from="GameArea/Board" to="." method="_on_Board_block_destroyed"]
+[connection signal="all_blocks_destroyed" from="GameArea" to="." method="_on_GameArea_all_blocks_destroyed"]
+[connection signal="ball_hit_player" from="GameArea" to="." method="_on_GameArea_ball_hit_player"]
+[connection signal="ball_launched" from="GameArea" to="." method="_on_GameArea_ball_launched"]
+[connection signal="ball_lost" from="GameArea" to="." method="_on_GameArea_ball_lost"]
+[connection signal="block_destroyed" from="GameArea" to="." method="_on_GameArea_block_destroyed"]

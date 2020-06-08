@@ -32,15 +32,15 @@ func _new_game():
 	emit_signal("game_start")
 
 
-func _on_Ball_launched():
+func _on_GameArea_ball_launched():
 	pass
 
 
-func _on_Ball_lost():
+func _on_GameArea_ball_lost():
 	balls_lost += 1
 
 
-func _on_Player_ball_hit_player():
+func _on_GameArea_ball_hit_player():
 	if combo == 0:
 		# No blocks hit after hitting player
 		# reset streak
@@ -49,7 +49,7 @@ func _on_Player_ball_hit_player():
 	combo = 0
 
 
-func _on_Board_all_blocks_destroyed():
+func _on_GameArea_all_blocks_destroyed():
 	var time = OS.get_ticks_msec() - start_time
 	score -= balls_lost * 11
 	# hard code to 5 minutes right now
@@ -67,7 +67,7 @@ func _on_Board_all_blocks_destroyed():
 	})
 
 
-func _on_Board_block_destroyed():
+func _on_GameArea_block_destroyed():
 	if combo == 0:
 		# first block hit after hitting player
 		# continue streak

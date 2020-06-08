@@ -53,9 +53,10 @@ func _on_DeathBox_body_entered(body):
 		emit_signal("lost")
 
 
-func _on_Game_game_start():
+func _on_GameArea_reset():
 	reset = true
 	
 
-func _on_Game_game_end():
+func _on_GameArea_stop():
 	contact_monitor = false
+

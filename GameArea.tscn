@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Block.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://Block.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Ball.gd" type="Script" id=4]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=6]
+[ext_resource path="res://BlockSpawner.gd" type="Script" id=7]
+[ext_resource path="res://GameArea.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 800, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2716.02, 1233.25 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1636.85, 1800.17 )
+
+[node name="GameArea" type="Node2D"]
+script = ExtResource( 8 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 640, 660 )
+rotation = 0.523599
+scale = Vector2( 0.6, 0.6 )
+script = ExtResource( 2 )
+ceiling = 150
+sub_amount = 10
+
+[node name="Ball" parent="." instance=ExtResource( 5 )]
+position = Vector2( 640, 450 )
+physics_material_override = ExtResource( 6 )
+gravity_scale = 0.0
+contacts_reported = 3
+contact_monitor = true
+linear_damp = 0.0
+script = ExtResource( 4 )
+initial_speed = 300
+max_speed = 800
+min_speed = 200
+
+[node name="Bounds" type="RigidBody2D" parent="."]
+mode = 1
+gravity_scale = 0.0
+
+[node name="Ceiling" type="CollisionShape2D" parent="Bounds"]
+position = Vector2( 640, 2.333 )
+shape = SubResource( 1 )
+
+[node name="RightWall" type="CollisionShape2D" parent="Bounds"]
+position = Vector2( 1280, 360 )
+rotation = -0.0174533
+shape = SubResource( 2 )
+
+[node name="LeftWall" type="CollisionShape2D" parent="Bounds"]
+position = Vector2( 0, 358.568 )
+rotation = 0.0174533
+shape = SubResource( 2 )
+
+[node name="DeathBox" type="Area2D" parent="."]
+gravity = 0.0
+
+[node name="Bottom" type="CollisionShape2D" parent="DeathBox"]
+position = Vector2( 640, 2000 )
+shape = SubResource( 3 )
+
+[node name="Top" type="CollisionShape2D" parent="DeathBox"]
+position = Vector2( 547.946, -1252.57 )
+shape = SubResource( 3 )
+
+[node name="Left" type="CollisionShape2D" parent="DeathBox"]
+position = Vector2( -1660.47, 517.874 )
+shape = SubResource( 4 )
+
+[node name="Right" type="CollisionShape2D" parent="DeathBox"]
+position = Vector2( 2936.25, 411.593 )
+shape = SubResource( 4 )
+
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource( 7 )
+top_padding = 0
+ball_path = NodePath("../Ball")
+block_count_override = 5
+
+[node name="Block2" parent="Board" instance=ExtResource( 3 )]
+position = Vector2( 640, 300 )
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 1 )
+[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+[connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
+[connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
+[connection signal="body_entered" from="Ball" to="Player" method="_on_Ball_body_entered"]
+[connection signal="launched" from="Ball" to="." method="_on_Ball_launched"]
+[connection signal="lost" from="Ball" to="." method="_on_Ball_lost"]
+[connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]
+[connection signal="all_blocks_destroyed" from="Board" to="." method="_on_Board_all_blocks_destroyed"]
+[connection signal="block_destroyed" from="Board" to="." method="_on_Board_block_destroyed"]

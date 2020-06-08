@@ -111,7 +111,7 @@ func _on_block_destroyed():
 		emit_signal("all_blocks_destroyed")
 
 
-func _on_Game_game_start():
+func _on_GameArea_reset():
 	base_block.position = initial_pos
 	base_block.show()
 	base_block.set_process(true)
