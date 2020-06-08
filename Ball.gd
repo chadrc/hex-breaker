@@ -42,7 +42,7 @@ func _integrate_forces(state):
 	if state.linear_velocity.length() > max_speed:
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	elif linear_velocity.length() < min_speed:
-		state.linear_velocity = previous_dir * min_speed
+		state.linear_velocity = previous_dir * (min_speed + 50)
 		
 	previous_dir = state.linear_velocity.normalized()
 

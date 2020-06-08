@@ -45,12 +45,13 @@ func _on_Game_game_end(data):
 	var time = data.time
 	var ms = time % 1000
 	var secs = (time - ms) / 1000
+	var secs_of_min = secs % 60
 	var minutes = secs / 60
 	
 	ComboLabel.text = "Combo: %d" % data.combo
 	StreakLabel.text = "Streak: %d" % data.streak
 	BallsLabel.text = "Balls Lost: %d" % data.balls_lost
-	TimeLabel.text = "Time: %d:%d.%d" % [minutes, secs, ms]
+	TimeLabel.text = "Time: %d:%d.%d" % [minutes, secs_of_min, ms]
 	ScoreLabel.text = "Score: %d" % data.score
 
 

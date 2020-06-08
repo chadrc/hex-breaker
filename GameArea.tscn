@@ -42,7 +42,7 @@ linear_damp = 0.0
 script = ExtResource( 4 )
 initial_speed = 300
 max_speed = 800
-min_speed = 200
+min_speed = 300
 
 [node name="Bounds" type="RigidBody2D" parent="."]
 mode = 1
@@ -85,14 +85,13 @@ shape = SubResource( 4 )
 script = ExtResource( 7 )
 top_padding = 0
 ball_path = NodePath("../Ball")
-block_count_override = 3
 
 [node name="Block2" parent="Board" instance=ExtResource( 3 )]
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 1 )
-[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="body_entered" from="Ball" to="Player" method="_on_Ball_body_entered"]
