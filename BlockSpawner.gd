@@ -14,15 +14,22 @@ export (int) var block_count_override = 0
 
 onready var base_block = $'Block2'
 
-var initial_y
+var initial_pos
 var total_blocks = 0
 var blocks_destroyed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	initial_pos = base_block.position
+	# disable and hide base block 
+	base_block.hide()
+	base_block.set_process(false)
+	base_block.position = Vector2(100000, 0)
+
+
+func _create_board():
 	# get block bounds
 	var ball = get_node(ball_path)
-	initial_y = base_block.position.y
 	var collision = base_block.get_node("CollisionPolygon2D")
 	var win_width = ProjectSettings.get_setting("display/window/size/width")
 	var win_height= ProjectSettings.get_setting("display/window/size/height")
@@ -95,14 +102,21 @@ func _ready():
 	base_block.hide()
 	base_block.set_process(false)
 	base_block.position = Vector2(100000, 0)
-	
+
 
 func _on_block_destroyed():
 	blocks_destroyed += 1
 	emit_signal("block_destroyed")
+	print("%d / %d" % [blocks_destroyed, total_blocks])
 	if blocks_destroyed == total_blocks:
 		emit_signal("all_blocks_destroyed")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_Game_game_start():
+	base_block.position = initial_pos
+	base_block.show()
+	base_block.set_process(true)
+	
+	blocks_destroyed = 0
+	
+	_create_board()

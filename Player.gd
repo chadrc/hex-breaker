@@ -36,3 +36,4 @@ func _physics_process(delta):
 func _on_Ball_body_entered(body):
 	if body == self:
 		emit_signal("ball_hit_player")
+
