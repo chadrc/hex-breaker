@@ -107,7 +107,6 @@ func _create_board():
 func _on_block_destroyed():
 	blocks_destroyed += 1
 	emit_signal("block_destroyed")
-	print("%d / %d" % [blocks_destroyed, total_blocks])
 	if blocks_destroyed == total_blocks:
 		emit_signal("all_blocks_destroyed")
 
