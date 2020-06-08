@@ -22,6 +22,7 @@ func _process(delta):
 	if waiting and Input.is_action_pressed("ui_accept"):
 		linear_velocity = previous_dir * initial_speed
 		waiting = false
+		contact_monitor = true
 		emit_signal("launched")
 
 
@@ -51,3 +52,10 @@ func _on_DeathBox_body_entered(body):
 		reset = true
 		emit_signal("lost")
 
+
+func _on_Game_game_start():
+	reset = true
+	
+
+func _on_Game_game_end():
+	contact_monitor = false

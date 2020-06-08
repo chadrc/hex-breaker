@@ -178,13 +178,13 @@ block_count_override = 5
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 6 )
-[connection signal="game_end" from="." to="GameArea/Ball" method="_on_Game_game_end"]
 [connection signal="game_end" from="." to="UI" method="_on_Game_game_end"]
 [connection signal="game_end" from="." to="GameArea/Player" method="_on_Game_game_end"]
-[connection signal="game_start" from="." to="GameArea/Ball" method="_on_Game_game_start"]
-[connection signal="game_start" from="." to="GameArea/Board" method="_on_Game_game_start"]
+[connection signal="game_end" from="." to="GameArea/Ball" method="_on_Game_game_end"]
 [connection signal="game_start" from="." to="UI" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="GameArea/Board" method="_on_Game_game_start"]
 [connection signal="game_start" from="." to="GameArea/Player" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="GameArea/Ball" method="_on_Game_game_start"]
 [connection signal="new_game_button_pressed" from="UI" to="." method="_on_UI_new_game_button_pressed"]
 [connection signal="button_down" from="UI/Panel/NewGameButton" to="." method="_on_NewGameButton_button_down"]
 [connection signal="pressed" from="UI/Panel/NewGameButton" to="UI" method="_on_NewGameButton_pressed"]
