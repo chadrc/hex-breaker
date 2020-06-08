@@ -7,32 +7,35 @@ signal unpause
 onready var Background = $"Background"
 onready var PausePanel = $"PausePanel"
 onready var ScorePanel = $"ScorePanel"
-onready var ComboLabel = $"Panel/ScoreBoard/ComboLabel"
-onready var StreakLabel = $"Panel/ScoreBoard/StreakLabel"
-onready var BallsLabel = $"Panel/ScoreBoard/BallsLabel"
-onready var TimeLabel = $"Panel/ScoreBoard/TimeLabel"
-onready var ScoreLabel = $"Panel/ScoreBoard/ScoreLabel"
+onready var ComboLabel = $"ScorePanel/ScoreBoard/ComboLabel"
+onready var StreakLabel = $"ScorePanel/ScoreBoard/StreakLabel"
+onready var BallsLabel = $"ScorePanel/ScoreBoard/BallsLabel"
+onready var TimeLabel = $"ScorePanel/ScoreBoard/TimeLabel"
+onready var ScoreLabel = $"ScorePanel/ScoreBoard/ScoreLabel"
 
-var check_input = false
+var scoring = false
 var paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _process(delta):
-	if check_input and Input.is_action_pressed("ui_accept"):
-		emit_signal("new_game_button_pressed")
-		
-	if Input.is_action_just_pressed("ui_home"):
-		if paused:
+	if scoring:
+		if Input.is_action_just_pressed("ui_accept"):
+			emit_signal("new_game_button_pressed")
+	else:
+		if Input.is_action_just_pressed("ui_home"):
+			if paused:
+				_unpause()
+			else:
+				paused = true
+				Background.visible = true
+				PausePanel.visible = true
+				emit_signal("pause")
+		elif paused and Input.is_action_just_pressed("ui_accept"):
 			_unpause()
-		else:
-			paused = true
-			Background.visible = true
-			PausePanel.visible = true
-			emit_signal("pause")
 
 
 func _on_Game_game_end(data):
-	check_input = true
+	scoring = true
 	Background.visible = true
 	ScorePanel.visible = true
 	
@@ -49,7 +52,7 @@ func _on_Game_game_end(data):
 
 
 func _on_Game_game_start():
-	check_input = false
+	scoring = false
 	Background.visible = false
 	ScorePanel.visible = false
 	PausePanel.visible = false
