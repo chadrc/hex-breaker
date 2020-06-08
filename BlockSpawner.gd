@@ -17,6 +17,7 @@ onready var base_block = $'Block2'
 var initial_pos
 var total_blocks = 0
 var blocks_destroyed = 0
+var all_blocks = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -73,6 +74,7 @@ func _create_board():
 	var off_first = Vector2(first.x, base_block.position.y) + Vector2(1, 0).rotated(deg2rad(-60)) * block_width
 	
 	total_blocks = 0
+	all_blocks = []
 	for r in range(row_count):
 		var group = floor(r / 2)
 		var row_first
@@ -96,6 +98,7 @@ func _create_board():
 			new.position = new_pos
 			
 			add_child(new)
+			all_blocks.append(new)
 			total_blocks += 1
 		
 	# disable and hide base block 
@@ -104,14 +107,20 @@ func _create_board():
 	base_block.position = Vector2(100000, 0)
 
 
-func _on_block_destroyed():
+func _on_block_destroyed(block):
 	blocks_destroyed += 1
 	emit_signal("block_destroyed")
+	all_blocks.erase(block)
+	print("%d / %d" % [blocks_destroyed, total_blocks])
 	if blocks_destroyed == total_blocks:
 		emit_signal("all_blocks_destroyed")
 
 
 func _on_GameArea_reset():
+	# make sure all existing blocks dont exist
+	for b in all_blocks:
+		b.queue_free()
+	
 	base_block.position = initial_pos
 	base_block.show()
 	base_block.set_process(true)

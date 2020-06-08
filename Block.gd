@@ -10,4 +10,4 @@ func _ready():
 func _on_Ball_body_entered(body):
 	if body == self:
 		queue_free()
-		emit_signal("destroyed")
+		emit_signal("destroyed", self)

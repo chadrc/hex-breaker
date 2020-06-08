@@ -90,3 +90,7 @@ func _on_UI_unpause():
 
 func _on_UI_pause():
 	get_tree().paused = true
+	
+
+func _on_UI_restart():
+	_new_game()

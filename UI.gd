@@ -3,6 +3,7 @@ extends CanvasLayer
 signal new_game_button_pressed
 signal pause
 signal unpause
+signal restart
 
 onready var Background = $"Background"
 onready var PausePanel = $"PausePanel"
@@ -32,6 +33,8 @@ func _process(delta):
 				emit_signal("pause")
 		elif paused and Input.is_action_just_pressed("ui_accept"):
 			_unpause()
+		elif Input.is_action_just_pressed("ui_end"):
+			_restart()
 
 
 func _on_Game_game_end(data):
@@ -66,8 +69,17 @@ func _on_ContinueButton_pressed():
 	_unpause()
 	
 
+func _on_RestartButton_pressed():
+	_restart()
+
+
 func _unpause():
 	paused = false
 	Background.visible = false
 	PausePanel.visible = false
 	emit_signal("unpause")
+	
+
+func _restart():
+	emit_signal("restart")
+

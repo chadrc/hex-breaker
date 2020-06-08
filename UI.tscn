@@ -39,16 +39,28 @@ __meta__ = {
 
 [node name="ContinueButton" type="Button" parent="PausePanel"]
 anchor_right = 1.0
-margin_left = 87.0
-margin_top = 310.0
-margin_right = -83.0
-margin_bottom = 363.0
+margin_left = 5.37756
+margin_top = 311.36
+margin_right = -164.622
+margin_bottom = 364.36
 text = "Continue"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RestartButton" type="Button" parent="PausePanel"]
+anchor_right = 1.0
+margin_left = 163.181
+margin_top = 311.36
+margin_right = -6.81903
+margin_bottom = 364.36
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ScorePanel" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 500.0
@@ -116,4 +128,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="PausePanel/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="PausePanel/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="ScorePanel/NewGameButton" to="." method="_on_NewGameButton_pressed"]
