@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Block.gd" type="Script" id=1]
-[ext_resource path="res://Block.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Ball.gd" type="Script" id=4]
-[ext_resource path="res://Ball.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=6]
-[ext_resource path="res://BlockSpawner.gd" type="Script" id=7]
-[ext_resource path="res://GameArea.gd" type="Script" id=8]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Blocks/Block.gd" type="Script" id=1]
+[ext_resource path="res://Blocks/Block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Blocks/BlockSpawner.gd" type="Script" id=3]
+[ext_resource path="res://Game/GameArea.gd" type="Script" id=4]
+[ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Ball/Ball.gd" type="Script" id=6]
+[ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=7]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 800, 10 )
@@ -22,21 +22,21 @@ extents = Vector2( 2716.02, 1233.25 )
 extents = Vector2( 1636.85, 1800.17 )
 
 [node name="GameArea" type="Node2D"]
-script = ExtResource( 8 )
+script = ExtResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 9 )]
+[node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 640, 655 )
 ceiling = 100
 sub_amount = 0
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 640, 450 )
-physics_material_override = ExtResource( 6 )
+physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
 contacts_reported = 3
 contact_monitor = true
 linear_damp = 0.0
-script = ExtResource( 4 )
+script = ExtResource( 6 )
 initial_speed = 300
 max_speed = 800
 min_speed = 300
@@ -79,11 +79,11 @@ position = Vector2( 2936.25, 411.593 )
 shape = SubResource( 4 )
 
 [node name="Board" type="Node2D" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 3 )
 top_padding = 0
 ball_path = NodePath("../Ball")
 
-[node name="Block2" parent="Board" instance=ExtResource( 3 )]
+[node name="Block2" parent="Board" instance=ExtResource( 2 )]
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 1 )

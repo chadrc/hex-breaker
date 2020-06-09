@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ball.svg-7c2999d2970f68acd572654dee38f489.stex"
+path="res://.import/hex_empty.svg-c2b78dffd833c70299cd1bca984f0b17.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ball.svg"
-dest_files=[ "res://.import/ball.svg-7c2999d2970f68acd572654dee38f489.stex" ]
+source_file="res://Hex/hex_empty.svg"
+dest_files=[ "res://.import/hex_empty.svg-c2b78dffd833c70299cd1bca984f0b17.stex" ]
 
 [params]
 

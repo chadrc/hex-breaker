@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hex_piece.svg-19719fb5332a4e74cb0325dd2af1e4a3.stex"
+path="res://.import/hex.svg-59277b9f3ff5051ba9adf8e950b161df.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://hex_piece.svg"
-dest_files=[ "res://.import/hex_piece.svg-19719fb5332a4e74cb0325dd2af1e4a3.stex" ]
+source_file="res://Hex/hex.svg"
+dest_files=[ "res://.import/hex.svg-59277b9f3ff5051ba9adf8e950b161df.stex" ]
 
 [params]
 
