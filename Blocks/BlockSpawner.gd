@@ -93,11 +93,14 @@ func _create_board():
 			# generate block board
 			var new_pos = Vector2(row_first.x + block_width * i, row_first.y)
 			var new = base_block.duplicate()
+			var c = HexColor.random_hex_color()
+			new.set_single_color(c)
 			ball.connect("body_entered", new, "_on_Ball_body_entered")
 			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
 			
 			add_child(new)
+			
 			all_blocks.append(new)
 			total_blocks += 1
 		

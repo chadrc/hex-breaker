@@ -23,3 +23,23 @@ static func color_for(h):
 			return Color.blue
 		Purple:
 			return Color.purple
+			
+
+static func random_hex_color():
+	var roll = rand_range(0, 6) as int
+	var color
+	match roll:
+		0:
+			color = Red
+		1:
+			color = Orange
+		2:
+			color = Yellow
+		3:
+			color = Green
+		4:
+			color = Blue
+		5:
+			color = Purple
+	
+	return color
