@@ -7,10 +7,18 @@ export (int) var initial_speed = 250
 export (int) var max_speed = 300
 export (int) var min_speed = 50
 
+onready var BallSprite = $"Sprite"
+
 var previous_dir = Vector2(0, 1)
 var original_position
 var reset = false
 var waiting = true
+var color = Color.white
+
+
+func set_color(color):
+	color = color
+	BallSprite.self_modulate = color
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

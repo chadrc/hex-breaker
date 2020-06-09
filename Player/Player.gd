@@ -33,7 +33,8 @@ func _physics_process(delta):
 	v = move_and_slide(v.normalized() * speed)
 
 
-func _on_Ball_body_entered(body):
-	if body == self:
+func _on_Hex_piece_touched(body, color):
+	if body.name == "Ball":
 		emit_signal("ball_hit_player")
-
+		body.set_color(color)
+		print("hex touched by ball: %s" % color)

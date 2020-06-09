@@ -1,11 +1,17 @@
-extends Sprite
+extends Area2D
 
 
-export (Color) var color
+signal piece_touched
+
+onready var sprite = $"Sprite"
+
+var color
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	self_modulate = color
+func set_color(c):
+	color = c
+	sprite.self_modulate = color
 
 
+func _on_HexPiece_body_entered(body):
+	emit_signal("piece_touched", body, color)
