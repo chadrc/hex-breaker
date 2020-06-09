@@ -37,4 +37,3 @@ func _on_Hex_piece_touched(body, color):
 	if body.name == "Ball":
 		emit_signal("ball_hit_player")
 		body.set_color(color)
-		print("hex touched by ball: %s" % color)

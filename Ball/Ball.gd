@@ -18,7 +18,7 @@ var color = Color.white
 
 func set_color(color):
 	color = color
-	BallSprite.self_modulate = color
+	BallSprite.self_modulate = HexColor.color_for(color)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

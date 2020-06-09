@@ -1,6 +1,5 @@
 extends Area2D
 
-
 signal piece_touched
 
 onready var sprite = $"Sprite"
@@ -10,7 +9,7 @@ var color
 
 func set_color(c):
 	color = c
-	sprite.self_modulate = color
+	sprite.self_modulate = HexColor.color_for(c)
 
 
 func _on_HexPiece_body_entered(body):
