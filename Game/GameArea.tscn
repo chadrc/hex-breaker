@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Blocks/Block.gd" type="Script" id=1]
 [ext_resource path="res://Blocks/Block.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blocks/BlockSpawner.gd" type="Script" id=3]
 [ext_resource path="res://Game/GameArea.gd" type="Script" id=4]
@@ -78,10 +77,9 @@ script = ExtResource( 3 )
 top_padding = 0
 ball_path = NodePath("../Ball")
 
-[node name="Block2" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 640, 300 )
+[node name="Block" parent="Board" instance=ExtResource( 2 )]
+position = Vector2( 640, 330 )
 scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 1 )
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]

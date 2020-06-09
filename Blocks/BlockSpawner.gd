@@ -12,7 +12,7 @@ export (NodePath) var ball_path
 # only formats one row
 export (int) var block_count_override = 0
 
-onready var base_block = $'Block2'
+onready var base_block = $'Block'
 
 var initial_pos
 var total_blocks = 0
