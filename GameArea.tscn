@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Block.gd" type="Script" id=1]
-[ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://Block.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Ball.gd" type="Script" id=4]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=6]
 [ext_resource path="res://BlockSpawner.gd" type="Script" id=7]
 [ext_resource path="res://GameArea.gd" type="Script" id=8]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 800, 10 )
@@ -24,13 +24,10 @@ extents = Vector2( 1636.85, 1800.17 )
 [node name="GameArea" type="Node2D"]
 script = ExtResource( 8 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 640, 660 )
-rotation = 0.523599
-scale = Vector2( 0.6, 0.6 )
-script = ExtResource( 2 )
-ceiling = 150
-sub_amount = 10
+[node name="Player" parent="." instance=ExtResource( 9 )]
+position = Vector2( 640, 655 )
+ceiling = 100
+sub_amount = 0
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 640, 450 )
@@ -90,8 +87,8 @@ ball_path = NodePath("../Ball")
 position = Vector2( 640, 300 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 1 )
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="body_entered" from="Ball" to="Player" method="_on_Ball_body_entered"]
