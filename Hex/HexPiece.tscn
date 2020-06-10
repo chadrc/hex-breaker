@@ -4,8 +4,8 @@
 [ext_resource path="res://Hex/HexPiece.gd" type="Script" id=2]
 
 [sub_resource type="SegmentShape2D" id=1]
-a = Vector2( -81, -46 )
-b = Vector2( -81, 46 )
+a = Vector2( -81, -40 )
+b = Vector2( -81, 40 )
 
 [node name="HexPiece" type="Area2D"]
 script = ExtResource( 2 )

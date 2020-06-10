@@ -6,6 +6,7 @@ signal lost
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
 export (int) var min_speed = 50
+export (float) var jitter_amount = 5.0
 
 onready var BallSprite = $"Sprite"
 
@@ -14,7 +15,7 @@ var original_position
 var reset = false
 var waiting = true
 var color = HexColor.Red
-
+var jitter = false
 
 func set_color(c):
 	color = c
@@ -52,6 +53,13 @@ func _integrate_forces(state):
 	elif linear_velocity.length() < min_speed:
 		state.linear_velocity = previous_dir * (min_speed + 50)
 		
+	if jitter:
+		state.linear_velocity = Vector2(
+			state.linear_velocity.x + rand_range(-jitter_amount, 0),
+			state.linear_velocity.y + rand_range(-jitter_amount, 0)
+		)
+		jitter = false
+		
 	previous_dir = state.linear_velocity.normalized()
 
 
@@ -71,6 +79,8 @@ func _on_GameArea_stop():
 
 func _on_Ball_body_entered(body):
 	if body.is_in_group("blocks"):
-		print("%s hit %s" % [color, body.get_color()])
 		if body.get_color() == color:
 			body.destroy()
+		else:
+			# need to jitter movment so don't get stuck in linear bounce
+			jitter = true

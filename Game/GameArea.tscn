@@ -26,12 +26,14 @@ script = ExtResource( 4 )
 position = Vector2( 640, 655 )
 ceiling = 100
 sub_amount = 0
+speed = 550
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 640, 450 )
 physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
 linear_damp = 0.0
+max_speed = 700
 
 [node name="Bounds" type="RigidBody2D" parent="."]
 mode = 1
@@ -77,11 +79,13 @@ ball_path = NodePath("../Ball")
 
 [node name="Block" parent="Board" instance=ExtResource( 2 )]
 position = Vector2( 640, 330 )
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="body_entered" from="Ball" to="Player" method="_on_Ball_body_entered"]
+[connection signal="launched" from="Ball" to="." method="_on_Ball_launched"]
+[connection signal="lost" from="Ball" to="." method="_on_Ball_lost"]
 [connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]
 [connection signal="all_blocks_destroyed" from="Board" to="." method="_on_Board_all_blocks_destroyed"]
 [connection signal="block_destroyed" from="Board" to="." method="_on_Board_block_destroyed"]

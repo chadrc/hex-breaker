@@ -12,3 +12,8 @@ scale = Vector2( 0.9, 0.9 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -43, -25, 0.187, -50, 43, -25, 43, 25, 0, 50, -43, 25 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

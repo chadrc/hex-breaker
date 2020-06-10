@@ -6,6 +6,7 @@
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 640, 360 )
 script = ExtResource( 1 )
+rotation_duration = 0.1
 
 [node name="Hex" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 0 )
