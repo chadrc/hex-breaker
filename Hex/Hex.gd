@@ -29,6 +29,6 @@ func _ready():
 	Piece6.set_color(HexColor.Purple)
 
 
-func _on_HexPiece_piece_touched(body, color):
-	emit_signal("piece_touched", body, color)
+func _on_HexPiece_piece_touched(body, c):
+	emit_signal("piece_touched", body, c)
 

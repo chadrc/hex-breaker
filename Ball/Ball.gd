@@ -6,7 +6,6 @@ signal lost
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
 export (int) var min_speed = 50
-export (float) var jitter_amount = 5.0
 
 onready var BallSprite = $"Sprite"
 
@@ -27,7 +26,7 @@ func _ready():
 	linear_velocity = Vector2.ZERO
 
 
-func _process(delta):
+func _process(_delta):
 	if waiting and Input.is_action_pressed("ui_accept"):
 		linear_velocity = previous_dir * initial_speed
 		waiting = false
@@ -52,13 +51,6 @@ func _integrate_forces(state):
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	elif linear_velocity.length() < min_speed:
 		state.linear_velocity = previous_dir * (min_speed + 50)
-		
-	if jitter:
-		state.linear_velocity = Vector2(
-			state.linear_velocity.x + rand_range(-jitter_amount, 0),
-			state.linear_velocity.y + rand_range(-jitter_amount, 0)
-		)
-		jitter = false
 		
 	previous_dir = state.linear_velocity.normalized()
 

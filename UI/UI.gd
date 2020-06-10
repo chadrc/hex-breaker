@@ -18,7 +18,7 @@ var scoring = false
 var paused = false
 
 # Called when the node enters the scene tree for the first time.
-func _process(delta):
+func _process(_delta):
 	if scoring:
 		if Input.is_action_just_pressed("ui_accept"):
 			emit_signal("new_game_button_pressed")

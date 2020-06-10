@@ -36,7 +36,7 @@ func _process(delta):
 			target_rotation = rotation_degrees - 60
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var v = Vector2(0, 0)
 	if Input.is_action_pressed("ui_right"):
 		v.x += 1

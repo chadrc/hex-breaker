@@ -30,7 +30,6 @@ func _ready():
 
 func _create_board():
 	# get block bounds
-	var ball = get_node(ball_path)
 	var collision = base_block.get_node("CollisionPolygon2D")
 	var win_width = ProjectSettings.get_setting("display/window/size/width")
 	var win_height= ProjectSettings.get_setting("display/window/size/height")
@@ -76,7 +75,7 @@ func _create_board():
 	total_blocks = 0
 	all_blocks = []
 	for r in range(row_count):
-		var group = floor(r / 2)
+		var group = floor(r / 2.0)
 		var row_first
 		var row_block_count
 		var y_offset = block_height * group + block_inner_height * group
@@ -95,8 +94,6 @@ func _create_board():
 			var new = base_block.duplicate()
 			var c = HexColor.random_hex_color()
 			new.set_single_color(c)
-			ball.connect("body_entered", new, "_on_Ball_body_entered")
-			new.connect("body_entered", new, "_on_Block_body_entered")
 			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
 			
