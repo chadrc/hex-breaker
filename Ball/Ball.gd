@@ -13,12 +13,12 @@ var previous_dir = Vector2(0, 1)
 var original_position
 var reset = false
 var waiting = true
-var color = Color.white
+var color = HexColor.Red
 
 
-func set_color(color):
-	color = color
-	BallSprite.self_modulate = HexColor.color_for(color)
+func set_color(c):
+	color = c
+	BallSprite.self_modulate = HexColor.color_for(c)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -68,3 +68,9 @@ func _on_GameArea_reset():
 func _on_GameArea_stop():
 	contact_monitor = false
 
+
+func _on_Ball_body_entered(body):
+	if body.is_in_group("blocks"):
+		print("%s hit %s" % [color, body.get_color()])
+		if body.get_color() == color:
+			body.destroy()

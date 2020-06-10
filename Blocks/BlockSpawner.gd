@@ -96,6 +96,7 @@ func _create_board():
 			var c = HexColor.random_hex_color()
 			new.set_single_color(c)
 			ball.connect("body_entered", new, "_on_Ball_body_entered")
+			new.connect("body_entered", new, "_on_Block_body_entered")
 			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
 			

@@ -31,8 +31,6 @@ sub_amount = 0
 position = Vector2( 640, 450 )
 physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
-contacts_reported = 3
-contact_monitor = true
 linear_damp = 0.0
 
 [node name="Bounds" type="RigidBody2D" parent="."]
