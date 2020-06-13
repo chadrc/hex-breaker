@@ -60,14 +60,13 @@ func _integrate_forces(state):
 func _on_DeathBox_body_entered(body):
 	if body == self:
 		reset = true
+		reset_x = original_position.x
 		emit_signal("lost")
 
 
 func _on_GameArea_reset(_colors):
-	if !waiting:
-		reset = true
-		reset_x = original_position.x
-	
+	reset = true
+	reset_x = original_position.x
 	BallSprite.self_modulate = Color.white
 	
 

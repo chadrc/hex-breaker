@@ -123,3 +123,12 @@ func _on_Hex_piece_touched(body, color):
 
 func _on_GameArea_reset(colors):
 	hex.set_colors(colors)
+	boost_cooldown_time = 0
+	recall_cooldown_time = 0
+	boost_on_cooldown = false
+	recall_on_cooldown = false
+	boost_time = 0
+	boosting = false
+	
+	emit_signal("boost_cooldown_end")
+	emit_signal("recall_cooldown_end")
