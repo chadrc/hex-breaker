@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://Game/GameUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Blocks/Block.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blocks/BlockSpawner.gd" type="Script" id=3]
 [ext_resource path="res://Game/GameArea.gd" type="Script" id=4]
@@ -81,12 +82,18 @@ ball_path = NodePath("../Ball")
 
 [node name="Block" parent="Board" instance=ExtResource( 2 )]
 position = Vector2( 640, 330 )
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+
+[node name="GameUI" parent="." instance=ExtResource( 1 )]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
+[connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]
+[connection signal="boost_cooldown_tick" from="Player" to="GameUI" method="_on_Player_boost_cooldown_tick"]
 [connection signal="recall_ability_invoked" from="Player" to="Ball" method="_on_Player_recall_ability_invoked"]
+[connection signal="recall_cooldown_end" from="Player" to="GameUI" method="_on_Player_recall_cooldown_end"]
+[connection signal="recall_cooldown_tick" from="Player" to="GameUI" method="_on_Player_recall_cooldown_tick"]
 [connection signal="launched" from="Ball" to="." method="_on_Ball_launched"]
 [connection signal="lost" from="Ball" to="." method="_on_Ball_lost"]
 [connection signal="body_entered" from="DeathBox" to="Ball" method="_on_DeathBox_body_entered"]

@@ -2,6 +2,10 @@ extends KinematicBody2D
 
 signal ball_hit_player
 signal recall_ability_invoked
+signal boost_cooldown_tick
+signal boost_cooldown_end
+signal recall_cooldown_tick
+signal recall_cooldown_end
 
 export (int) var ceiling = 200
 export (int) var sub_amount = 50
@@ -59,7 +63,9 @@ func _process(delta):
 		if boost_cooldown_time >= boost_cooldown:
 			boost_on_cooldown = false
 			boost_cooldown_time = 0
-			print("boost cooldown ended")
+			emit_signal("boost_cooldown_end")
+		else:
+			emit_signal("boost_cooldown_tick", boost_cooldown_time, boost_cooldown)
 	else:
 		if Input.is_action_just_pressed("game_ability_boost"):
 			current_speed = boost_speed
@@ -79,7 +85,9 @@ func _process(delta):
 		if recall_cooldown_time >= recall_cooldown:
 			recall_on_cooldown = false
 			recall_cooldown_time = 0
-			print("recall cooldown ended")
+			emit_signal("recall_cooldown_end")
+		else:
+			emit_signal("recall_cooldown_tick", recall_cooldown_time, recall_cooldown)
 	else:
 		if Input.is_action_just_pressed("game_ability_recall"):
 			emit_signal("recall_ability_invoked", position)
