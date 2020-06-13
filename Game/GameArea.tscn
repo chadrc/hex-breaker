@@ -27,6 +27,8 @@ position = Vector2( 640, 655 )
 ceiling = 100
 sub_amount = 0
 speed = 550
+boost_speed = 1500
+boost_duration = 0.2
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 position = Vector2( 640, 450 )
@@ -79,8 +81,8 @@ ball_path = NodePath("../Ball")
 
 [node name="Block" parent="Board" instance=ExtResource( 2 )]
 position = Vector2( 640, 330 )
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]

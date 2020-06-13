@@ -5,13 +5,19 @@ signal ball_hit_player
 export (int) var ceiling = 200
 export (int) var sub_amount = 50
 export (int) var speed = 500
-export (float) var rotation_duration = 1
+export (int) var boost_speed = 800
+export (float) var boost_duration = .5
+export (float) var boost_cooldown = 5
+export (float) var rotation_duration = .1
 
 onready var hex = $'Hex'
 
 var start_rotation = null
 var target_rotation = null
 var rotation_time = 0
+var boost_time = 0
+var boosting = false
+var current_speed = speed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,6 +42,17 @@ func _process(delta):
 		elif Input.is_action_just_pressed("game_rotate_right"):
 			start_rotation = rotation_degrees
 			target_rotation = rotation_degrees - 60
+			
+	if boosting:
+		boost_time += delta
+		if boost_time >= boost_duration:
+			boosting = false
+			current_speed = speed
+	else:
+		if Input.is_action_just_pressed("game_ability_boost"):
+			current_speed = boost_speed
+			boost_time = 0
+			boosting = true
 
 
 func _physics_process(_delta):
@@ -57,7 +74,7 @@ func _physics_process(_delta):
 	elif v.y > 0 and position.y > lower_limit:
 		v.y = 0
 		
-	v = move_and_slide(v.normalized() * speed)
+	v = move_and_slide(v.normalized() * current_speed)
 
 
 func _on_Hex_piece_touched(body, color):
