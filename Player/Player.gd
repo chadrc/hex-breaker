@@ -35,7 +35,7 @@ var recall_cooldown_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	add_to_group("player")
 
 
 func _process(delta):

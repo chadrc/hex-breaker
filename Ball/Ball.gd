@@ -2,12 +2,18 @@ extends RigidBody2D
 
 signal launched
 signal lost
+signal energy_update
 
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
 export (int) var min_speed = 50
+export (int) var max_energy = 100
+export (float) var energy_per_tick = .5
+export (int) var player_energy_loss = 10
+export (int) var block_energy_loss = 20
 
 onready var BallSprite = $"Sprite"
+onready var energy_timer = $'EnergyTimer'
 
 var previous_dir = Vector2(0, 1)
 var original_position
@@ -15,7 +21,8 @@ var reset = false
 var waiting = true
 var color = HexColor.Red
 var reset_x
-
+var energy = 0
+var explode_targets = []
 
 func set_color(c):
 	color = c
@@ -33,6 +40,7 @@ func _process(_delta):
 		linear_velocity = previous_dir * initial_speed
 		waiting = false
 		contact_monitor = true
+		energy_timer.start()
 		emit_signal("launched")
 
 
@@ -47,6 +55,8 @@ func _integrate_forces(state):
 		linear_velocity = Vector2.ZERO
 		reset = false
 		waiting = true
+		_set_energy(0)
+		energy_timer.stop()
 		return
 	
 	if state.linear_velocity.length() > max_speed:
@@ -55,6 +65,19 @@ func _integrate_forces(state):
 		state.linear_velocity = previous_dir * (min_speed + 50)
 		
 	previous_dir = state.linear_velocity.normalized()
+
+
+func _set_energy(amount):
+	energy = amount
+	emit_signal("energy_update", energy)
+
+
+func remove_energy(amount):
+	_set_energy(max(0, energy - amount))
+	
+
+func add_energy(amount):
+	_set_energy(min(energy + amount, max_energy))
 
 
 func _on_DeathBox_body_entered(body):
@@ -78,9 +101,30 @@ func _on_Ball_body_entered(body):
 	if body.is_in_group("blocks"):
 		if body.get_color() == color:
 			body.destroy()
+			remove_energy(block_energy_loss)
+		elif energy == max_energy:
+			for t in explode_targets:
+				t.destroy()
+			reset = true
+			reset_x = original_position.x
+	elif body.is_in_group("player"):
+		remove_energy(player_energy_loss)
 
 
 func _on_Player_recall_ability_invoked(player_pos):
 	if !waiting:
 		reset = true
 		reset_x = player_pos.x
+
+
+func _on_EnergyTimer_timeout():
+	add_energy(energy_per_tick)
+
+
+func _on_ExplodeArea_body_entered(body):
+	if body.is_in_group("blocks"):
+		explode_targets.append(body)
+
+
+func _on_ExplodeArea_body_exited(body):
+	explode_targets.erase(body)
