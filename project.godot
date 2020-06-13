@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "HexColor",
 "language": "GDScript",
 "path": "res://Hex/HexColor.gd"
+}, {
+"base": "Reference",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://common/Utils.gd"
 } ]
 _global_script_class_icons={
-"HexColor": ""
+"HexColor": "",
+"Utils": ""
 }
 
 [application]

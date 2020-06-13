@@ -33,5 +33,5 @@ func _stop():
 	emit_signal("stop")
 
 
-func _reset():
-	emit_signal("reset")
+func _reset(colors):
+	emit_signal("reset", colors)

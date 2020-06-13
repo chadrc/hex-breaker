@@ -7,6 +7,8 @@ export (int) var sub_amount = 50
 export (int) var speed = 500
 export (float) var rotation_duration = 1
 
+onready var hex = $'Hex'
+
 var start_rotation = null
 var target_rotation = null
 var rotation_time = 0
@@ -62,3 +64,7 @@ func _on_Hex_piece_touched(body, color):
 	if body.name == "Ball":
 		emit_signal("ball_hit_player")
 		body.set_color(color)
+
+
+func _on_GameArea_reset(colors):
+	hex.set_colors(colors)

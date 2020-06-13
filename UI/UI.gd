@@ -55,7 +55,7 @@ func _on_Game_game_end(data):
 	ScoreLabel.text = "Score: %d" % data.score
 
 
-func _on_Game_game_start():
+func _on_Game_game_start(_colors):
 	scoring = false
 	Background.visible = false
 	ScorePanel.visible = false

@@ -28,7 +28,7 @@ func _ready():
 	base_block.position = Vector2(100000, 0)
 
 
-func _create_board():
+func _create_board(colors):
 	# get block bounds
 	var collision = base_block.get_node("CollisionPolygon2D")
 	var win_width = ProjectSettings.get_setting("display/window/size/width")
@@ -92,7 +92,9 @@ func _create_board():
 			# generate block board
 			var new_pos = Vector2(row_first.x + block_width * i, row_first.y)
 			var new = base_block.duplicate()
-			var c = HexColor.random_hex_color()
+			
+			# hard coded for now, need to convert to input somehow
+			var c = Utils.pick_one_from(colors)
 			new.set_single_color(c)
 			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
@@ -117,7 +119,7 @@ func _on_block_destroyed(block):
 		emit_signal("all_blocks_destroyed")
 
 
-func _on_GameArea_reset():
+func _on_GameArea_reset(colors):
 	# make sure all existing blocks dont exist
 	for b in all_blocks:
 		b.queue_free()
@@ -128,4 +130,4 @@ func _on_GameArea_reset():
 	
 	blocks_destroyed = 0
 	
-	_create_board()
+	_create_board(colors)

@@ -61,7 +61,7 @@ func _on_DeathBox_body_entered(body):
 		emit_signal("lost")
 
 
-func _on_GameArea_reset():
+func _on_GameArea_reset(_colors):
 	reset = true
 	
 

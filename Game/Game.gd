@@ -14,12 +14,18 @@ var start_time = 0
 
 onready var GameArea = $'GameArea'
 
+var colors = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_new_game()
 	
 
 func _new_game():
+	colors = [
+		HexColor.random_hex_color(),
+		HexColor.random_hex_color()
+	]
 	balls_lost = 0
 	combo = 0
 	streak = 0
@@ -30,7 +36,7 @@ func _new_game():
 	playing = true
 	
 	GameArea.get_tree().paused = false
-	emit_signal("game_start")
+	emit_signal("game_start", colors)
 
 
 func _on_GameArea_ball_launched():
