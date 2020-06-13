@@ -83,7 +83,7 @@ ball_path = NodePath("../Ball")
 
 [node name="Block" parent="Board" instance=ExtResource( 2 )]
 position = Vector2( 300, 400 )
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.35, 0.35 )
 
 [node name="GameUI" parent="." instance=ExtResource( 1 )]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
