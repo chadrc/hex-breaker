@@ -1,23 +1,33 @@
 extends KinematicBody2D
 
 signal ball_hit_player
+signal recall_ability_invoked
 
 export (int) var ceiling = 200
 export (int) var sub_amount = 50
 export (int) var speed = 500
+export (float) var rotation_duration = .1
 export (int) var boost_speed = 800
 export (float) var boost_duration = .5
 export (float) var boost_cooldown = 5
-export (float) var rotation_duration = .1
+export (float) var recall_cooldown = 15
 
 onready var hex = $'Hex'
 
 var start_rotation = null
 var target_rotation = null
 var rotation_time = 0
+var current_speed = speed
+
+# Boost ability
 var boost_time = 0
 var boosting = false
-var current_speed = speed
+var boost_on_cooldown = false
+var boost_cooldown_time = 0
+
+# Recall ability
+var recall_on_cooldown = false
+var recall_cooldown_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,17 +53,37 @@ func _process(delta):
 			start_rotation = rotation_degrees
 			target_rotation = rotation_degrees - 60
 			
+	# Boost Ability
+	if boost_on_cooldown:
+		boost_cooldown_time += delta
+		if boost_cooldown_time >= boost_cooldown:
+			boost_on_cooldown = false
+			boost_cooldown_time = 0
+			print("boost cooldown ended")
+	else:
+		if Input.is_action_just_pressed("game_ability_boost"):
+			current_speed = boost_speed
+			boosting = true
+			boost_on_cooldown = true
+	
 	if boosting:
 		boost_time += delta
 		if boost_time >= boost_duration:
 			boosting = false
 			current_speed = speed
-	else:
-		if Input.is_action_just_pressed("game_ability_boost"):
-			current_speed = boost_speed
 			boost_time = 0
-			boosting = true
-
+			
+	# Recall Ability
+	if recall_on_cooldown:
+		recall_cooldown_time += delta
+		if recall_cooldown_time >= recall_cooldown:
+			recall_on_cooldown = false
+			recall_cooldown_time = 0
+			print("recall cooldown ended")
+	else:
+		if Input.is_action_just_pressed("game_ability_recall"):
+			emit_signal("recall_ability_invoked", position)
+			recall_on_cooldown = true
 
 func _physics_process(_delta):
 	var v = Vector2(0, 0)

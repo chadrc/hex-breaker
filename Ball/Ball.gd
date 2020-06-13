@@ -14,7 +14,8 @@ var original_position
 var reset = false
 var waiting = true
 var color = HexColor.Red
-var jitter = false
+var reset_x
+
 
 func set_color(c):
 	color = c
@@ -23,6 +24,7 @@ func set_color(c):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	original_position = position
+	reset_x = original_position.x
 	linear_velocity = Vector2.ZERO
 
 
@@ -41,7 +43,7 @@ func _integrate_forces(state):
 		
 	if reset:
 		previous_dir = Vector2(0, 1)
-		state.transform = Transform2D(0, original_position)
+		state.transform = Transform2D(0, Vector2(reset_x, original_position.y))
 		linear_velocity = Vector2.ZERO
 		reset = false
 		waiting = true
@@ -62,7 +64,9 @@ func _on_DeathBox_body_entered(body):
 
 
 func _on_GameArea_reset(_colors):
-	reset = true
+	if !waiting:
+		reset = true
+		reset_x = original_position.x
 	
 
 func _on_GameArea_stop():
@@ -73,6 +77,9 @@ func _on_Ball_body_entered(body):
 	if body.is_in_group("blocks"):
 		if body.get_color() == color:
 			body.destroy()
-		else:
-			# need to jitter movment so don't get stuck in linear bounce
-			jitter = true
+
+
+func _on_Player_recall_ability_invoked(player_pos):
+	if !waiting:
+		reset = true
+		reset_x = player_pos.x
