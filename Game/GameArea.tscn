@@ -24,7 +24,7 @@ extents = Vector2( 1636.85, 1800.17 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 300, 700 )
+position = Vector2( 300, 740 )
 ceiling = 100
 sub_amount = 0
 speed = 550
@@ -32,7 +32,7 @@ boost_speed = 1500
 boost_duration = 0.2
 
 [node name="Ball" parent="." instance=ExtResource( 5 )]
-position = Vector2( 300, 450 )
+position = Vector2( 300, 500 )
 physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
 linear_damp = 0.0
@@ -82,13 +82,13 @@ top_padding = 0
 ball_path = NodePath("../Ball")
 
 [node name="Block" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 300, 330 )
+position = Vector2( 300, 400 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="GameUI" parent="." instance=ExtResource( 1 )]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
-[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]
