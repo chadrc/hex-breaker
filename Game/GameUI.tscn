@@ -6,10 +6,12 @@
 script = ExtResource( 1 )
 
 [node name="CooldownPanel" type="VBoxContainer" parent="."]
-margin_left = 17.0
-margin_top = 16.0
-margin_right = 152.0
-margin_bottom = 73.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 15.052
+margin_top = -71.0266
+margin_right = 150.052
+margin_bottom = -14.0266
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
