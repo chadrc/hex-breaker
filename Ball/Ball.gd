@@ -68,6 +68,8 @@ func _on_GameArea_reset(_colors):
 		reset = true
 		reset_x = original_position.x
 	
+	BallSprite.self_modulate = Color.white
+	
 
 func _on_GameArea_stop():
 	contact_monitor = false

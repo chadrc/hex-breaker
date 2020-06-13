@@ -3,6 +3,8 @@ extends Node2D
 signal game_start
 signal game_end
 
+onready var GameArea = $'GameArea'
+
 var playing = false
 var balls_lost = 0
 var combo = 0
@@ -11,10 +13,8 @@ var highest_streak = 0
 var streak = 0
 var score = 0
 var start_time = 0
-
-onready var GameArea = $'GameArea'
-
 var colors = []
+var game_mode = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,10 +22,25 @@ func _ready():
 	
 
 func _new_game():
-	colors = [
-		HexColor.random_hex_color(),
-		HexColor.random_hex_color()
+	var all_colors = [
+		HexColor.Red,
+		HexColor.Orange,
+		HexColor.Yellow,
+		HexColor.Green,
+		HexColor.Blue,
+		HexColor.Purple,
 	]
+	colors = []
+	if game_mode == 6:
+		colors = all_colors
+	else:
+		# ensure no duplicates by picking one at a time
+		# and removing from all list
+		for i in range(game_mode):
+			var c = Utils.pick_one_from(all_colors)
+			all_colors.erase(c)
+			colors.append(c)
+	
 	balls_lost = 0
 	combo = 0
 	streak = 0
@@ -100,3 +115,7 @@ func _on_UI_pause():
 
 func _on_UI_restart():
 	_new_game()
+
+
+func _on_UI_game_mode_change(mode):
+	game_mode = mode

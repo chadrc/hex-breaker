@@ -59,6 +59,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GameModeOption" type="OptionButton" parent="PausePanel"]
+margin_left = 93.2833
+margin_top = 180.31
+margin_right = 200.283
+margin_bottom = 200.31
+text = "Game Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ScorePanel" type="Panel" parent="."]
 visible = false
 anchor_right = 1.0
@@ -129,4 +139,5 @@ __meta__ = {
 }
 [connection signal="pressed" from="PausePanel/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="PausePanel/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="item_selected" from="PausePanel/GameModeOption" to="." method="_on_GameModeOption_item_selected"]
 [connection signal="pressed" from="ScorePanel/NewGameButton" to="." method="_on_NewGameButton_pressed"]

@@ -4,9 +4,14 @@ signal new_game_button_pressed
 signal pause
 signal unpause
 signal restart
+signal game_mode_change
 
 onready var Background = $"Background"
+
 onready var PausePanel = $"PausePanel"
+onready var GameModeOption = $'PausePanel/GameModeOption'
+onready var ContinueButton = $'PausePanel/ContinueButton'
+
 onready var ScorePanel = $"ScorePanel"
 onready var ComboLabel = $"ScorePanel/ScoreBoard/ComboLabel"
 onready var StreakLabel = $"ScorePanel/ScoreBoard/StreakLabel"
@@ -17,7 +22,17 @@ onready var ScoreLabel = $"ScorePanel/ScoreBoard/ScoreLabel"
 var scoring = false
 var paused = false
 
-# Called when the node enters the scene tree for the first time.
+var selected_index = 1
+var current_index = 1
+
+func _ready():
+	GameModeOption.add_item("1 Color", 1)
+	GameModeOption.add_item("2 Color", 2)
+	GameModeOption.add_item("3 Color", 3)
+	GameModeOption.add_item("6 Color", 6)
+	GameModeOption.select(1)
+	
+
 func _process(_delta):
 	if scoring:
 		if Input.is_action_just_pressed("ui_accept"):
@@ -82,5 +97,12 @@ func _unpause():
 	
 
 func _restart():
+	if selected_index != current_index:
+		current_index = selected_index
+		emit_signal("game_mode_change", GameModeOption.get_item_id(selected_index))
 	emit_signal("restart")
 
+
+func _on_GameModeOption_item_selected(i):
+	selected_index = i
+	ContinueButton.disabled = selected_index != current_index
