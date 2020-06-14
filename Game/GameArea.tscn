@@ -35,15 +35,18 @@ boost_duration = 0.2
 position = Vector2( 300, 500 )
 physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
-linear_damp = 0.0
 max_speed = 700
 energy_per_tick = 0.5
 player_energy_loss = 5
 block_energy_loss = 10
 
-[node name="Bounds" type="RigidBody2D" parent="."]
+[node name="Bounds" type="RigidBody2D" parent="." groups=[
+"walls",
+]]
 mode = 1
 gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 
 [node name="Ceiling" type="CollisionShape2D" parent="Bounds"]
 position = Vector2( 300, 0 )

@@ -7,6 +7,7 @@ signal energy_update
 export (int) var initial_speed = 250
 export (int) var max_speed = 300
 export (int) var min_speed = 50
+export (float) var min_y_velocity = 10.0
 export (int) var max_energy = 100
 export (float) var energy_per_tick = .5
 export (int) var player_energy_loss = 10
@@ -59,6 +60,12 @@ func _integrate_forces(state):
 		energy_timer.stop()
 		return
 	
+	var y = state.linear_velocity.y
+	if y > -min_y_velocity and y < 0:
+		state.linear_velocity.y = -min_y_velocity
+	elif y < min_y_velocity and y > 0:
+		state.linear_velocity.y = min_y_velocity
+	
 	if state.linear_velocity.length() > max_speed:
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	elif linear_velocity.length() < min_speed:
@@ -109,6 +116,8 @@ func _on_Ball_body_entered(body):
 			reset_x = original_position.x
 	elif body.is_in_group("player"):
 		remove_energy(player_energy_loss)
+	elif body.is_in_group("walls"):
+		print('hit wall: %s' % linear_velocity)
 
 
 func _on_Player_recall_ability_invoked(player_pos):

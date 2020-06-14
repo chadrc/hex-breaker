@@ -36,7 +36,7 @@ func _new_game():
 	else:
 		# ensure no duplicates by picking one at a time
 		# and removing from all list
-		for i in range(game_mode):
+		for _i in range(game_mode):
 			var c = Utils.pick_one_from(all_colors)
 			all_colors.erase(c)
 			colors.append(c)

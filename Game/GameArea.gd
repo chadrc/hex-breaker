@@ -29,7 +29,7 @@ func _on_Player_ball_hit_player():
 	emit_signal("ball_hit_player")
 	
 
-func _stop():
+func _stop(_results):
 	emit_signal("stop")
 
 
