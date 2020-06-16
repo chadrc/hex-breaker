@@ -116,6 +116,7 @@ func _on_Ball_body_entered(body):
 			reset_x = original_position.x
 	elif body.is_in_group("player"):
 		remove_energy(player_energy_loss)
+		
 
 
 func _on_Player_recall_ability_invoked(player_pos):

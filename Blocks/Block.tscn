@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Hex/hex_fill.svg" type="Texture" id=1]
 [ext_resource path="res://Blocks/Block.gd" type="Script" id=2]
 [ext_resource path="res://Hex/hex_border.svg" type="Texture" id=3]
 [ext_resource path="res://Hex/hex_empty.svg" type="Texture" id=4]
+[ext_resource path="res://Ball/ball.svg" type="Texture" id=5]
 
 [node name="Block" type="StaticBody2D"]
 script = ExtResource( 2 )
@@ -39,6 +40,11 @@ texture = ExtResource( 4 )
 visible = false
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 4 )
+
+[node name="BallPowerUp" type="Sprite" parent="Node2D"]
+visible = false
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 5 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -79, -45, 0, -93, 80, -45, 80, 45, 0, 93, -79, 45 )
