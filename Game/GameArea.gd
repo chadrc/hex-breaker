@@ -8,6 +8,10 @@ signal ball_hit_player
 signal reset
 signal stop
 
+const extra_ball_scene = preload("res://Ball/ExtraBall.tscn")
+
+onready var death_box = $'DeathBox'
+
 
 func _on_Board_all_blocks_destroyed():
 	emit_signal("all_blocks_destroyed")
@@ -35,3 +39,15 @@ func _stop(_results):
 
 func _reset(colors):
 	emit_signal("reset", colors)
+
+
+func _on_Board_ball_powerup_obtained(from_block):
+	var new_ball = extra_ball_scene.instance()
+	new_ball.name = "PowerUpBall"
+	new_ball.position = from_block.position
+	connect("reset", new_ball, "_on_GameArea_reset")
+	connect("stop", new_ball, "_on_GameArea_stop")
+	death_box.connect("body_entered", new_ball, "_on_DeathBox_body_entered")
+	add_child(new_ball)
+	new_ball.launch(Vector2.DOWN)
+	

@@ -24,6 +24,7 @@ var color = HexColor.Red
 var reset_x
 var energy = 0
 var explode_targets = []
+var extra = false
 
 func set_color(c):
 	color = c
@@ -38,9 +39,14 @@ func _ready():
 
 func _process(_delta):
 	if waiting and Input.is_action_pressed("ui_accept"):
-		linear_velocity = previous_dir * initial_speed
-		waiting = false
-		contact_monitor = true
+		launch(previous_dir)
+		
+		
+func launch(dir):
+	linear_velocity = dir * initial_speed
+	waiting = false
+	contact_monitor = true
+	if !extra:
 		energy_timer.start()
 		emit_signal("launched")
 
@@ -117,7 +123,6 @@ func _on_Ball_body_entered(body):
 	elif body.is_in_group("player"):
 		remove_energy(player_energy_loss)
 		
-
 
 func _on_Player_recall_ability_invoked(player_pos):
 	if !waiting:

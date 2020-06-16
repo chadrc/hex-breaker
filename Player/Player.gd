@@ -116,7 +116,7 @@ func _physics_process(_delta):
 
 
 func _on_Hex_piece_touched(body, color):
-	if body.name == "Ball":
+	if body.is_in_group("balls"):
 		emit_signal("ball_hit_player")
 		body.set_color(color)
 

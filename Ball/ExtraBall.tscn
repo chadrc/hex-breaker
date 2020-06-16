@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Ball/ball.svg" type="Texture" id=1]
+[ext_resource path="res://Ball/ExtraBall.gd" type="Script" id=2]
+[ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 19.2134
+
+[node name="ExtraBall" type="RigidBody2D" groups=[
+"balls",
+]]
+physics_material_override = ExtResource( 3 )
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+linear_damp = 0.0
+script = ExtResource( 2 )
+initial_speed = 300
+max_speed = 700
+min_speed = 300
+min_y_velocity = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_ExtraBall_body_entered"]

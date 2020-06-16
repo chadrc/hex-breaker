@@ -2,6 +2,7 @@ extends Node2D
 
 signal all_blocks_destroyed
 signal block_destroyed
+signal ball_powerup_obtained
 
 export (int) var side_padding = 50
 export (int) var top_padding = 50
@@ -115,7 +116,10 @@ func _on_block_destroyed(block):
 	blocks_destroyed += 1
 	emit_signal("block_destroyed")
 	all_blocks.erase(block)
-	print("%d / %d" % [blocks_destroyed, total_blocks])
+	
+	if block.has_ball_powerup:
+		emit_signal("ball_powerup_obtained", block)
+	
 	if blocks_destroyed == total_blocks:
 		emit_signal("all_blocks_destroyed")
 
