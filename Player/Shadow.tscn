@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Hex/hex_fill.svg" type="Texture" id=1]
+[ext_resource path="res://Hex/Hex.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/Shadow.gd" type="Script" id=3]
+
+[node name="Shadow" type="KinematicBody2D"]
+position = Vector2( 640, 360 )
+collision_layer = 2
+script = ExtResource( 3 )
+
+[node name="Hex" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 0, 0 )
+rotation = 1.5708
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 27, -48, -27, -48, -55, 0, -27, 48, 27, 48, 55, 0 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+[connection signal="piece_touched" from="Hex" to="." method="_on_Hex_piece_touched"]
