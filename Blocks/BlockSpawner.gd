@@ -100,6 +100,7 @@ func _create_board(colors):
 			new.connect("destroyed", self, "_on_block_destroyed")
 			new.position = new_pos
 			new.has_ball_powerup = rand_range(0, 100) > 95.0
+			new.has_shadow_powerup = !new.has_ball_powerup and rand_range(0, 100) > 95.0
 			
 			add_child(new)
 			
