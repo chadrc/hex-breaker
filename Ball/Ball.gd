@@ -15,6 +15,7 @@ export (int) var block_energy_loss = 20
 
 onready var BallSprite = $"Sprite"
 onready var energy_timer = $'EnergyTimer'
+onready var launch_timer = $'LaunchTimer'
 
 var previous_dir = Vector2(0, 1)
 var original_position
@@ -35,21 +36,27 @@ func _ready():
 	original_position = position
 	reset_x = original_position.x
 	linear_velocity = Vector2.ZERO
+	launch_timer.start()
 
 
 func _process(_delta):
 	if waiting and Input.is_action_pressed("ui_accept"):
+		launch_timer.stop()
 		launch(previous_dir)
 		
 		
 func launch(dir):
 	linear_velocity = dir * initial_speed
+	unwait()
+
+
+func unwait():
 	waiting = false
+	reset = false
 	contact_monitor = true
 	if !extra:
 		energy_timer.start()
 		emit_signal("launched")
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
@@ -64,6 +71,7 @@ func _integrate_forces(state):
 		waiting = true
 		_set_energy(0)
 		energy_timer.stop()
+		launch_timer.start()
 		return
 	
 	var y = state.linear_velocity.y
@@ -122,6 +130,9 @@ func _on_Ball_body_entered(body):
 			reset_x = original_position.x
 	elif body.is_in_group("player"):
 		remove_energy(player_energy_loss)
+	elif body.is_in_group("balls"):
+		# transfer color
+		pass
 		
 
 func _on_Player_recall_ability_invoked(player_pos):
@@ -141,3 +152,7 @@ func _on_ExplodeArea_body_entered(body):
 
 func _on_ExplodeArea_body_exited(body):
 	explode_targets.erase(body)
+
+
+func _on_LaunchTimer_timeout():
+	launch(previous_dir)

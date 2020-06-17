@@ -54,3 +54,7 @@ func _on_ExtraBall_body_entered(body):
 	if body.is_in_group("blocks"):
 		if body.get_color() == color:
 			body.destroy()
+	if body.is_in_group("balls"):
+		body.set_color(color)
+		if body.name == "Ball": # primary ball
+			body.unwait()

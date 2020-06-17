@@ -5,7 +5,7 @@
 [ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 19.2134
+radius = 15.0546
 
 [node name="ExtraBall" type="RigidBody2D" groups=[
 "balls",
@@ -25,6 +25,6 @@ min_y_velocity = 50.0
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 1 )
 [connection signal="body_entered" from="." to="." method="_on_ExtraBall_body_entered"]
