@@ -7,6 +7,7 @@
 [node name="Shadow" type="KinematicBody2D"]
 position = Vector2( 640, 360 )
 collision_layer = 2
+collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="Hex" parent="." instance=ExtResource( 2 )]
