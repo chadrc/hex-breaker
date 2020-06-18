@@ -1,7 +1,7 @@
 
 mkdir -p "build/export"
 
-godot --export "HTML5" "build/export/index.html"
+godot-headless --export "HTML5" "build/export/index.html"
 
 cd "build/export"
 
