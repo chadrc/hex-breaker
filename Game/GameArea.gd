@@ -9,8 +9,11 @@ signal reset
 signal stop
 
 const extra_ball_scene = preload("res://Ball/ExtraBall.tscn")
+const shadow_scene = preload("res://Player/Shadow.tscn")
 
 onready var death_box = $'DeathBox'
+onready var player = $'Player'
+onready var shadow_container = $"ShadowContainer"
 
 
 func _on_Board_all_blocks_destroyed():
@@ -50,4 +53,10 @@ func _on_Board_ball_powerup_obtained(from_block):
 	death_box.connect("body_entered", new_ball, "_on_DeathBox_body_entered")
 	add_child(new_ball)
 	new_ball.launch(Vector2.DOWN)
-	
+
+
+func _on_Board_shadow_powerup_obtained():
+	var shadow = shadow_scene.instance()
+	shadow.position = player.position
+	# add to specific container so it renders behind player
+	shadow_container.add_child(shadow)

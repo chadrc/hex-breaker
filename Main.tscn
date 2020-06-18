@@ -10,10 +10,10 @@ script = ExtResource( 8 )
 [node name="UI" parent="." instance=ExtResource( 9 )]
 
 [node name="GameArea" parent="." instance=ExtResource( 1 )]
-[connection signal="game_end" from="." to="GameArea" method="_stop"]
 [connection signal="game_end" from="." to="UI" method="_on_Game_game_end"]
-[connection signal="game_start" from="." to="GameArea" method="_reset"]
+[connection signal="game_end" from="." to="GameArea" method="_stop"]
 [connection signal="game_start" from="." to="UI" method="_on_Game_game_start"]
+[connection signal="game_start" from="." to="GameArea" method="_reset"]
 [connection signal="game_mode_change" from="UI" to="." method="_on_UI_game_mode_change"]
 [connection signal="new_game_button_pressed" from="UI" to="." method="_on_UI_new_game_button_pressed"]
 [connection signal="pause" from="UI" to="." method="_on_UI_pause"]
