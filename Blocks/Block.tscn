@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Hex/hex_fill.svg" type="Texture" id=1]
 [ext_resource path="res://Blocks/Block.gd" type="Script" id=2]
 [ext_resource path="res://Ball/ball.svg" type="Texture" id=5]
 [ext_resource path="res://common/white_pixel.jpg" type="Texture" id=6]
@@ -25,8 +24,9 @@ scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 5 )
 
 [node name="ShadowPowerUp" type="Sprite" parent="Node2D"]
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 1 )
+material = ExtResource( 7 )
+scale = Vector2( 40, 40 )
+texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -43.3, -25, 0, -50, 43.3, -25, 43.3, 25, 0, 50, -43.3, 25 )

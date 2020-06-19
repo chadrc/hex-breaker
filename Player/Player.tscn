@@ -4,14 +4,14 @@
 [ext_resource path="res://Hex/Hex.tscn" type="PackedScene" id=2]
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 640, 360 )
+position = Vector2( 294.466, 383.126 )
 collision_mask = 4
 script = ExtResource( 1 )
 
 [node name="Hex" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 0 )
-rotation = 1.5708
+scale = Vector2( 0.919893, 0.919893 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 27, -48, -27, -48, -55, 0, -27, 48, 27, 48, 55, 0 )
+polygon = PoolVector2Array( 27.5, -48, -27.5, -48, -55, 0, -27.5, 48, 27.5, 48, 55, 0 )
 [connection signal="piece_touched" from="Hex" to="." method="_on_Hex_piece_touched"]
