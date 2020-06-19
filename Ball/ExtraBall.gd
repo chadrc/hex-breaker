@@ -8,7 +8,7 @@ export (float) var min_y_velocity = 10.0
 onready var BallSprite = $"Sprite"
 
 var previous_dir = Vector2(0, 1)
-var color = HexColor.Red
+var color = null
 
 func set_color(c):
 	color = c
@@ -55,6 +55,8 @@ func _on_ExtraBall_body_entered(body):
 		if body.get_color() == color:
 			body.destroy()
 	if body.is_in_group("balls"):
-		body.set_color(color)
+		if color:
+			body.set_color(color)
+		
 		if body.name == "Ball": # primary ball
 			body.unwait()
