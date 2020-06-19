@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Ball/ball.svg" type="Texture" id=1]
+[ext_resource path="res://common/white_pixel.jpg" type="Texture" id=1]
 [ext_resource path="res://Ball/ExtraBall.gd" type="Script" id=2]
 [ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=3]
+[ext_resource path="res://Ball/CircleMaterial.tres" type="Material" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 15.0546
@@ -27,6 +28,7 @@ min_y_velocity = 50.0
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.15, 0.15 )
+material = ExtResource( 4 )
+scale = Vector2( 29.6197, 29.6197 )
 texture = ExtResource( 1 )
 [connection signal="body_entered" from="." to="." method="_on_ExtraBall_body_entered"]
