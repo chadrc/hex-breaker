@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+const vec2 center = vec2(.5, .5);
+const float radius = .5;
+
+void fragment() {
+	const float bottom = 0.25 * sqrt(3) + .5;
+	const float top = 1.0 - bottom;
+	
+	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+	for (float i=0.0; i<3.0; i++) {
+		float sine = sin(radians(60.0 * i));
+		float cosine = cos(radians(60.0 * i));
+		
+		vec2 p = vec2(UV.x - .5, -(UV.y - .5));
+		
+		p = vec2(
+			p.x * cosine - p.y * sine, 
+			p.x * sine + p.y * cosine
+		);
+		
+		p = vec2(p.x + .5, -p.y + .5);
+		
+		if (p.x >= .25 && p.x <= .75 && p.y <= bottom && p.y >= top) {
+			COLOR = vec4(1.0, 1.0, 1.0, 1.0);
+			break;
+		}
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )

@@ -2,7 +2,7 @@ extends StaticBody2D
 
 signal destroyed
 
-onready var fill = $'Node2D/Fill'
+onready var fill = $'Node2D/Hex'
 onready var death_timer = $"Timer"
 onready var ball_sprite = $'Node2D/BallPowerUp'
 onready var shadow_sprite = $'Node2D/ShadowPowerUp'
