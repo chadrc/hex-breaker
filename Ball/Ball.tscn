@@ -18,9 +18,9 @@ collision_layer = 4
 collision_mask = 7
 physics_material_override = ExtResource( 3 )
 gravity_scale = 0.0
+continuous_cd = 2
 contacts_reported = 1
 contact_monitor = true
-linear_damp = 0.0
 script = ExtResource( 2 )
 initial_speed = 300
 max_speed = 800
@@ -46,8 +46,12 @@ shape = SubResource( 2 )
 [node name="LaunchTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="ChangeColorTimer" type="Timer" parent="."]
+wait_time = 0.1
 [connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
 [connection signal="timeout" from="EnergyTimer" to="." method="_on_EnergyTimer_timeout"]
 [connection signal="body_entered" from="ExplodeArea" to="." method="_on_ExplodeArea_body_entered"]
 [connection signal="body_exited" from="ExplodeArea" to="." method="_on_ExplodeArea_body_exited"]
 [connection signal="timeout" from="LaunchTimer" to="." method="_on_LaunchTimer_timeout"]
+[connection signal="timeout" from="ChangeColorTimer" to="." method="_on_ChangeColorTimer_timeout"]

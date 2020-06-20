@@ -16,6 +16,7 @@ export (int) var block_energy_loss = 20
 onready var BallSprite = $"Sprite"
 onready var energy_timer = $'EnergyTimer'
 onready var launch_timer = $'LaunchTimer'
+onready var change_color_timer = $'ChangeColorTimer'
 
 var previous_dir = Vector2(0, 1)
 var original_position
@@ -26,6 +27,7 @@ var reset_x
 var energy = 0
 var explode_targets = []
 var extra = false
+var contact_position = null
 
 func set_color(c):
 	color = c
@@ -73,6 +75,9 @@ func _integrate_forces(state):
 		energy_timer.stop()
 		launch_timer.start()
 		return
+		
+	if state.get_contact_count() > 0:
+		contact_position = state.get_contact_local_position(0)
 	
 	var y = state.linear_velocity.y
 	if y > -min_y_velocity and y < 0:
@@ -129,8 +134,11 @@ func _on_Ball_body_entered(body):
 			reset = true
 			reset_x = original_position.x
 	elif body.is_in_group("player"):
-		set_color(body.get_color(position))
-		remove_energy(player_energy_loss)
+		# timer is not active
+		if change_color_timer.is_stopped():
+			set_color(body.get_color(contact_position))
+			remove_energy(player_energy_loss)
+			change_color_timer.start()
 	elif body.is_in_group("balls"):
 		# transfer color
 		pass
@@ -157,3 +165,7 @@ func _on_ExplodeArea_body_exited(body):
 
 func _on_LaunchTimer_timeout():
 	launch(previous_dir)
+
+
+func _on_ChangeColorTimer_timeout():
+	change_color_timer.stop()

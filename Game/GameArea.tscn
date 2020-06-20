@@ -88,8 +88,8 @@ position = Vector2( 300, 375 )
 scale = Vector2( 0.6, 0.6 )
 
 [node name="GameUI" parent="." instance=ExtResource( 1 )]
-[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="stop" from="." to="Ball" method="_on_GameArea_stop"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
