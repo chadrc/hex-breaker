@@ -47,17 +47,12 @@ func set_six_colors():
 	
 
 func set_colors(colors: Array):
-	match colors.size():
-		1:
-			set_single_color(colors[0])
-		2:
-			set_two_colors(colors[0], colors[1])
-		3:
-			set_three_colors(colors[0], colors[1], colors[2])
-		0 | 6:
-			set_six_colors()
-		_:
-			printerr("Unsupported number of colors %s" % colors.size())
+	Piece1.set_color(colors[0])
+	Piece2.set_color(colors[1])
+	Piece3.set_color(colors[2])
+	Piece4.set_color(colors[3])
+	Piece5.set_color(colors[4])
+	Piece6.set_color(colors[5])
 
 
 func _on_HexPiece_piece_touched(body, c):

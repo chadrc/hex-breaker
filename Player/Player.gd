@@ -23,6 +23,8 @@ var target_rotation = null
 var rotation_time = 0
 var current_speed = speed
 
+var colors = []
+
 # Boost ability
 var boost_time = 0
 var boosting = false
@@ -118,17 +120,45 @@ func _physics_process(_delta):
 func _on_Hex_piece_touched(body, color):
 	if body.is_in_group("balls"):
 		emit_signal("ball_hit_player")
-		body.set_color(color)
 
 
-func _on_GameArea_reset(colors):
+func _on_GameArea_reset(c):
+	colors = c
 	hex.set_colors(colors)
 	boost_cooldown_time = 0
 	recall_cooldown_time = 0
 	boost_on_cooldown = false
 	recall_on_cooldown = false
 	boost_time = 0
+	rotation_degrees = 0.0
 	boosting = false
 	
 	emit_signal("boost_cooldown_end")
 	emit_signal("recall_cooldown_end")
+	
+
+func get_color(p):
+	var dif = p - position
+	print("theirs %s | mine %s | dif %s" % [p, position, dif])
+	
+	var theta
+	var d
+	if dif.x == 0:
+		theta = 90
+		d = 0
+	else:
+		theta = rad2deg(atan(dif.y / dif.x))
+		d = dif.normalized().dot(Vector2.LEFT)
+		
+	var ratio = (d + 1) / 2
+	var deg = lerp(180, 0, ratio)
+	
+	# ball is below player
+	if p.y > position.y:
+		deg = 360 - deg
+		
+	deg = int(deg + rotation_degrees) % 360
+	
+	var index = floor(deg / 60.0)
+	print("deg %s | cross %s | index %d" % [deg, d, index])
+	return colors[index]

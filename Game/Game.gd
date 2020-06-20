@@ -40,6 +40,16 @@ func _new_game():
 			var c = Utils.pick_one_from(all_colors)
 			all_colors.erase(c)
 			colors.append(c)
+			
+	if game_mode == 2:
+		colors.append(colors[0])
+		colors.append(colors[1])
+		colors.append(colors[0])
+		colors.append(colors[1])
+	elif game_mode == 3:
+		colors.append(colors[0])
+		colors.append(colors[1])
+		colors.append(colors[2])
 	
 	balls_lost = 0
 	combo = 0

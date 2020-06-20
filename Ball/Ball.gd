@@ -129,6 +129,7 @@ func _on_Ball_body_entered(body):
 			reset = true
 			reset_x = original_position.x
 	elif body.is_in_group("player"):
+		set_color(body.get_color(position))
 		remove_energy(player_energy_loss)
 	elif body.is_in_group("balls"):
 		# transfer color
