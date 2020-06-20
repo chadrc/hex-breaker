@@ -6,7 +6,7 @@
 [ext_resource path="res://Ball/CircleMaterial.tres" type="Material" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 15.0546
+radius = 12.5
 
 [node name="ExtraBall" type="RigidBody2D" groups=[
 "balls",
@@ -29,6 +29,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 4 )
-scale = Vector2( 29.6197, 29.6197 )
+scale = Vector2( 25, 25 )
 texture = ExtResource( 1 )
+
+[node name="ChangeColorTimer" type="Timer" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_ExtraBall_body_entered"]
