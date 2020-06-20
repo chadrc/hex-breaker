@@ -139,26 +139,23 @@ func _on_GameArea_reset(c):
 
 func get_color(p):
 	var dif = p - position
-	print("theirs %s | mine %s | dif %s" % [p, position, dif])
+#	print("theirs %s | mine %s | dif %s" % [p, position, dif])
 	
-	var theta
 	var d
 	if dif.x == 0:
-		theta = 90
 		d = 0
 	else:
-		theta = rad2deg(atan(dif.y / dif.x))
 		d = dif.normalized().dot(Vector2.LEFT)
 		
-	var ratio = (d + 1) / 2
+	var ratio = (d + 1.0) / 2.0
 	var deg = lerp(180, 0, ratio)
 	
 	# ball is below player
 	if p.y > position.y:
 		deg = 360 - deg
 		
-	deg = int(deg + rotation_degrees) % 360
+	deg = int(deg - rotation_degrees) % 360
 	
 	var index = floor(deg / 60.0)
-	print("deg %s | cross %s | index %d" % [deg, d, index])
+#	print("cross %s | ratio %s | deg %s | index %d" % [d, ratio, deg, index])
 	return colors[index]
