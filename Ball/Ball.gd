@@ -28,23 +28,11 @@ var energy = 0
 var explode_targets = []
 var extra = false
 var contact_position = null
+var physics_position = null
 
 func set_color(c):
 	color = c
 	BallSprite.self_modulate = HexColor.color_for(c)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	original_position = position
-	reset_x = original_position.x
-	linear_velocity = Vector2.ZERO
-	launch_timer.start()
-
-
-func _process(_delta):
-	if waiting and Input.is_action_pressed("ui_accept"):
-		launch_timer.stop()
-		launch(previous_dir)
 		
 		
 func launch(dir):
@@ -59,6 +47,23 @@ func unwait():
 	if !extra:
 		energy_timer.start()
 		emit_signal("launched")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	original_position = position
+	reset_x = original_position.x
+	linear_velocity = Vector2.ZERO
+	launch_timer.start()
+
+
+func _process(_delta):
+	if waiting and Input.is_action_pressed("ui_accept"):
+		launch_timer.stop()
+		launch(previous_dir)
+		
+	
+func _physics_process(delta):
+	physics_position = position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
@@ -136,7 +141,8 @@ func _on_Ball_body_entered(body):
 	elif body.is_in_group("player"):
 		# timer is not active
 		if change_color_timer.is_stopped():
-			set_color(body.get_color(contact_position))
+			print("physics %s | actual %s" % [physics_position, position])
+			set_color(body.get_color(physics_position))
 			remove_energy(player_energy_loss)
 			change_color_timer.start()
 	elif body.is_in_group("balls"):

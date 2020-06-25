@@ -22,6 +22,7 @@ var start_rotation = null
 var target_rotation = null
 var rotation_time = 0
 var current_speed = speed
+var physics_position = null
 
 var colors = []
 
@@ -95,7 +96,9 @@ func _process(delta):
 			emit_signal("recall_ability_invoked", position)
 			recall_on_cooldown = true
 
+
 func _physics_process(_delta):
+	physics_position = position
 	var v = Vector2(0, 0)
 	if Input.is_action_pressed("ui_right"):
 		v.x += 1
@@ -138,24 +141,28 @@ func _on_GameArea_reset(c):
 	
 
 func get_color(p):
-	var dif = p - position
-#	print("theirs %s | mine %s | dif %s" % [p, position, dif])
+	var dif = position - p
 	
-	var d
+	var deg
 	if dif.x == 0:
-		d = 0
+		deg = 90.0
 	else:
-		d = dif.normalized().dot(Vector2.LEFT)
-		
-	var ratio = (d + 1.0) / 2.0
-	var deg = lerp(180, 0, ratio)
+		deg = rad2deg(atan(dif.y / dif.x))
 	
-	# ball is below player
-	if p.y > position.y:
-		deg = 360 - deg
+	# start off in 2nd quadrant
+	# check if were in other three
+	if p.x > position.x and p.y <= position.y:
+		# 1st quadrant
+		deg = 180.0 - abs(deg)
+	elif p.x <= position.x and p.y > position.y:
+		# 3rd quadrant
+		deg = 360.0 - abs(deg)
+	elif p.x > position.x and p.y > position.y:
+		# 4th quadrant
+		deg = 180 + deg
 		
 	deg = int(deg - rotation_degrees) % 360
 	
 	var index = floor(deg / 60.0)
-#	print("cross %s | ratio %s | deg %s | index %d" % [d, ratio, deg, index])
+	print("deg %s | index %d" % [deg, index])
 	return colors[index]
