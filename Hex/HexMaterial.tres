@@ -5,18 +5,19 @@ code = "shader_type canvas_item;
 
 const vec2 center = vec2(.5, .5);
 const float radius = .5;
+const float border_size = .1;
 
 void fragment() {
-	const float bottom = 0.25 * sqrt(3) + .5;
-	const float top = 1.0 - bottom;
+	float height = tan(radians(60.0)) * .25 + .5;
 	
 	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
-	for (float i=0.0; i<3.0; i++) {
+	
+	for (float i=0.0; i<6.0; i++) {
 		float sine = sin(radians(60.0 * i));
 		float cosine = cos(radians(60.0 * i));
 		
 		vec2 p = vec2(UV.x - .5, -(UV.y - .5));
-		
+
 		p = vec2(
 			p.x * cosine - p.y * sine, 
 			p.x * sine + p.y * cosine
@@ -24,11 +25,41 @@ void fragment() {
 		
 		p = vec2(p.x + .5, -p.y + .5);
 		
-		if (p.x >= .25 && p.x <= .75 && p.y <= bottom && p.y >= top) {
-			COLOR = vec4(1.0, 1.0, 1.0, 1.0);
+		vec2 dif = p - vec2(0.5, 0.5);
+		float angle = degrees(atan(dif.y, dif.x));
+		
+		if (angle >= 60.0 && angle <= 120.0 && p.y < height) {
+			COLOR = vec4(.5, .5, .5, 1.0);
+			float y_dif = height - p.y;
+			if (y_dif <= border_size) {
+				COLOR *= vec4(.5, .5, .5, 1.0);
+			}
 			break;
 		}
 	}
+	
+//	const float bottom = 0.25 * sqrt(3) + .5;
+//	const float top = 1.0 - bottom;
+//
+//	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+//	for (float i=0.0; i<3.0; i++) {
+//		float sine = sin(radians(60.0 * i));
+//		float cosine = cos(radians(60.0 * i));
+//
+//		vec2 p = vec2(UV.x - .5, -(UV.y - .5));
+//
+//		p = vec2(
+//			p.x * cosine - p.y * sine, 
+//			p.x * sine + p.y * cosine
+//		);
+//
+//		p = vec2(p.x + .5, -p.y + .5);
+//
+//		if (p.x >= .25 && p.x <= .75 && p.y <= bottom && p.y >= top) {
+//			COLOR = vec4(1.0, 1.0, 1.0, 1.0);
+//			break;
+//		}
+//	}
 }"
 
 [resource]

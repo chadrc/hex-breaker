@@ -3,12 +3,22 @@
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
+const float border_size = .20;
+
 void fragment() {
 	float height = tan(radians(60.0)) * .5;
+	
+	COLOR = vec4(.5, .5, .5, 1.0);
+	
 	vec2 dif = UV - vec2(.5, 0.0);
 	float angle = degrees(atan(dif.y, dif.x));
 	if (angle < 60.0 || angle > 120.0 || UV.y > height) {
 		COLOR.a = 0.0;
+	} else {
+		float y_dif = height - UV.y;
+		if (y_dif <= border_size) {
+			COLOR *= vec4(.5, .5, .5, 1.0);
+		}
 	}
 }"
 
