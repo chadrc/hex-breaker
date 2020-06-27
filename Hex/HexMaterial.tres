@@ -10,7 +10,7 @@ const float border_size = .1;
 void fragment() {
 	float height = tan(radians(60.0)) * .25 + .5;
 	
-	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+	vec3 color = vec3(0.0);
 	
 	for (float i=0.0; i<6.0; i++) {
 		float sine = sin(radians(60.0 * i));
@@ -29,14 +29,24 @@ void fragment() {
 		float angle = degrees(atan(dif.y, dif.x));
 		
 		if (angle >= 60.0 && angle <= 120.0 && p.y < height) {
-			COLOR = vec4(.5, .5, .5, 1.0);
+			color = vec3(.5, .5, .5);
 			float y_dif = height - p.y;
 			if (y_dif <= border_size) {
-				COLOR *= vec4(.5, .5, .5, 1.0);
+				// find the light angle
+				const vec2 light = vec2(.5, 0.);
+				vec2 lp = vec2(UV.x, UV.y);
+				
+				vec2 ldif = lp - light;
+				float langle = degrees(atan(ldif.x, ldif.y));
+				float f = langle / 360.0;
+				
+				color *= vec3(ldif.x, 0.0, 0.0);
 			}
 			break;
 		}
 	}
+	
+	COLOR = vec4(color, 1.0);
 }"
 
 [resource]

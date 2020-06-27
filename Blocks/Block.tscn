@@ -14,12 +14,14 @@ __meta__ = {
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Hex" type="Sprite" parent="Node2D"]
+visible = false
 material = ExtResource( 7 )
 rotation = 1.5708
 scale = Vector2( 100, 100 )
 texture = ExtResource( 6 )
 
 [node name="BallPowerUp" type="Sprite" parent="Node2D"]
+visible = false
 material = ExtResource( 1 )
 scale = Vector2( 40, 40 )
 texture = ExtResource( 6 )
@@ -31,6 +33,7 @@ scale = Vector2( 40, 40 )
 texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( -43.3, -25, 0, -50, 43.3, -25, 43.3, 25, 0, 50, -43.3, 25 )
 
 [node name="Timer" type="Timer" parent="."]
