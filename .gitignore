@@ -5,3 +5,4 @@
 # Project
 build/
 local/
+*.blend[0-9]*
