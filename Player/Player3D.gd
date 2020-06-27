@@ -9,7 +9,7 @@ signal recall_cooldown_end
 
 export (int) var ceiling = 200
 export (int) var sub_amount = 50
-export (float) var speed = 500
+export (float) var speed = 50
 export (float) var rotation_duration = .1
 export (int) var boost_speed = 800
 export (float) var boost_duration = .5
@@ -46,7 +46,7 @@ func _process(delta):
 		rotation_time += delta
 		var frac = rotation_time / rotation_duration
 		if frac > 1:
-			rotation_degrees = target_rotation
+			rotation_degrees.z = target_rotation
 			start_rotation = null
 			target_rotation = null
 			rotation_time = 0
@@ -115,8 +115,8 @@ func _physics_process(delta):
 #		v.y = 0
 #	elif v.y < 0 and translation.y > lower_limit:
 #		v.y = 0
-		
-	v = move_and_slide(v.normalized() * current_speed * delta)
+
+	move_and_slide(v.normalized() * current_speed)
 
 
 func _on_Hex_piece_touched(body, color):

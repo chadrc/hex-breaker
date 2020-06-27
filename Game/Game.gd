@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 signal game_start
 signal game_end
