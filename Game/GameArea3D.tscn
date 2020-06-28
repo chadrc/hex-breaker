@@ -39,9 +39,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 50, 3 )
 projection = 1
 size = 100.0
 
-[node name="Borders" type="StaticBody" parent="." groups=[
+[node name="Borders" type="RigidBody" parent="." groups=[
 "walls",
 ]]
+mode = 1
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 
 [node name="Left" type="CollisionShape" parent="Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )

@@ -61,6 +61,7 @@ func _process(_delta):
 		
 	if (translation.x <= 0.0 || translation.x >= 100.0
 		|| translation.y <= -20.0 || translation.y >= 100.0):
+		print("lost")
 		reset = true
 		reset_x = original_translation.x
 		emit_signal("lost")
@@ -68,10 +69,8 @@ func _process(_delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
-	if waiting:
-		return;
-		
 	if reset:
+		print("resetting")
 		previous_dir = Vector3(0, -1, 0)
 		state.transform = Transform2D(0, Vector2(reset_x, original_translation.y))
 		linear_velocity = Vector3.ZERO
@@ -82,6 +81,10 @@ func _integrate_forces(state):
 		launch_timer.start()
 		return
 	
+	if waiting:
+		return;
+	
+	# might not need with move to 3D
 #	var y = state.linear_velocity.y
 #	if y > -min_y_velocity and y < 0:
 #		state.linear_velocity.y = -min_y_velocity
@@ -92,7 +95,7 @@ func _integrate_forces(state):
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	elif linear_velocity.length() < min_speed:
 		state.linear_velocity = previous_dir * (min_speed + min_speed)
-		
+#
 	previous_dir = state.linear_velocity.normalized()
 
 
