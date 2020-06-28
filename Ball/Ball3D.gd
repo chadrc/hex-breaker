@@ -59,6 +59,12 @@ func _process(_delta):
 		launch_timer.stop()
 		launch(previous_dir)
 		
+	if (translation.x <= 0.0 || translation.x >= 100.0
+		|| translation.y <= -20.0 || translation.y >= 100.0):
+		reset = true
+		reset_x = original_translation.x
+		emit_signal("lost")
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
@@ -76,16 +82,16 @@ func _integrate_forces(state):
 		launch_timer.start()
 		return
 	
-	var y = state.linear_velocity.y
-	if y > -min_y_velocity and y < 0:
-		state.linear_velocity.y = -min_y_velocity
-	elif y < min_y_velocity and y > 0:
-		state.linear_velocity.y = min_y_velocity
+#	var y = state.linear_velocity.y
+#	if y > -min_y_velocity and y < 0:
+#		state.linear_velocity.y = -min_y_velocity
+#	elif y < min_y_velocity and y > 0:
+#		state.linear_velocity.y = min_y_velocity
 	
 	if state.linear_velocity.length() > max_speed:
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
 	elif linear_velocity.length() < min_speed:
-		state.linear_velocity = previous_dir * (min_speed + 50)
+		state.linear_velocity = previous_dir * (min_speed + min_speed)
 		
 	previous_dir = state.linear_velocity.normalized()
 
@@ -101,13 +107,6 @@ func remove_energy(amount):
 
 func add_energy(amount):
 	_set_energy(min(energy + amount, max_energy))
-
-
-func _on_DeathBox_body_entered(body):
-	if body == self:
-		reset = true
-		reset_x = original_translation.x
-		emit_signal("lost")
 
 
 func _on_GameArea_reset(_colors):

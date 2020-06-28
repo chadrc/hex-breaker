@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/Player3D.gd" type="Script" id=1]
+[ext_resource path="res://Hex/Hex.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( 0, 0.135238, -0.882127, 0, 0.135238, 0, -0.763944, 0.135238, -0.441063, -0.763944, 0.135238, 0.441063, 0, 0.135238, 0.882127, 0.763944, 0.135238, 0.441063, 0.763944, 0.135238, -0.441063, 0, 0, -1, 0.866025, 0, -0.5, 0, 0.135238, -0.882127, 0.763944, 0.135238, -0.441063, -0.866025, 0, -0.5, 0, 0, -1, -0.763944, 0.135238, -0.441063, 0, 0.135238, -0.882127, 0.866025, 0, -0.5, 0.866025, 0, 0.5, 0.763944, 0.135238, -0.441063, 0.763944, 0.135238, 0.441063, 0.866025, 0, 0.5, 0, 0, 1, 0.763944, 0.135238, 0.441063, 0, 0.135238, 0.882127, 0, 0, 1, -0.866025, 0, 0.5, 0, 0.135238, 0.882127, -0.763944, 0.135238, 0.441063, -0.866025, 0, 0.5, -0.866025, 0, -0.5, -0.763944, 0.135238, 0.441063, -0.763944, 0.135238, -0.441063 )
+
+[node name="Player" type="KinematicBody" groups=[
+"player",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 20, 0 )
+script = ExtResource( 1 )
+speed = 25.0
+
+[node name="Hex" type="MeshInstance" parent="."]
+transform = Transform( 4.33013, 1.09136e-07, 2.5, 2.5, -4.07302e-07, -4.33013, 1.09136e-07, 5, -4.07302e-07, 0, 0, 0 )
+mesh = ExtResource( 2 )
+material/0 = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 4.33013, 1.09136e-07, 2.5, 2.5, -4.07302e-07, -4.33013, 1.09136e-07, 5, -4.07302e-07, 0, 0, 0 )
+shape = SubResource( 2 )
