@@ -3,11 +3,13 @@
 [ext_resource path="res://Hex/Hex.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Blocks/Block3D.gd" type="Script" id=2]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=1]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=2]
 
-[node name="Block" type="StaticBody"]
+[node name="Block" type="StaticBody" groups=[
+"blocks",
+]]
 script = ExtResource( 2 )
 
 [node name="Visuals" type="Spatial" parent="."]
@@ -15,7 +17,7 @@ script = ExtResource( 2 )
 [node name="Hex" type="MeshInstance" parent="Visuals"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 mesh = ExtResource( 1 )
-material/0 = SubResource( 4 )
+material/0 = SubResource( 1 )
 
 [node name="BallPowerUp" type="Spatial" parent="Visuals"]
 
@@ -24,4 +26,4 @@ material/0 = SubResource( 4 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 2 )

@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="HexBreaker"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://Game/3DGame.tscn"
 
 [display]
 
