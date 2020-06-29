@@ -28,16 +28,7 @@ func _ready():
 	base_block.hide()
 	base_block.set_process(false)
 	base_block.translation = Vector3(100000, 0, 0)
-	
-	# remove
-	_create_board([
-		HexColor.Red,
-		HexColor.Red,
-		HexColor.Red,
-		HexColor.Red,
-		HexColor.Red,
-		HexColor.Red,
-	])
+
 
 
 func _create_board(colors):
@@ -90,8 +81,8 @@ func _create_board(colors):
 	
 	var off_first = Vector3(first.x, initial_pos.y, 0.0) + Vector3(1, 0, 0).rotated(Vector3.FORWARD, deg2rad(-60)) * block_width
 	
-	print('first %s | off %s' % [first, off_first])
-	print("blocks %s | rows %s" % [block_count, row_count])
+#	print('first %s | off %s' % [first, off_first])
+#	print("blocks %s | rows %s" % [block_count, row_count])
 	total_blocks = 0
 	all_blocks = []
 	for r in range(row_count):
@@ -108,8 +99,8 @@ func _create_board(colors):
 			row_first = Vector3(off_first.x, off_first.y - y_offset, 0.0)
 			row_block_count = off_block_count
 		
-		print('off %s' % (r % 2))
-		print('row count %s' % row_block_count)
+#		print('off %s' % (r % 2))
+#		print('row count %s' % row_block_count)
 		for i in range(row_block_count):
 			# generate block board
 			var new_pos = Vector3(row_first.x + block_width * i, row_first.y, 0.0)

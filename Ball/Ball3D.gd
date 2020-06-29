@@ -115,7 +115,9 @@ func add_energy(amount):
 func _on_GameArea_reset(_colors):
 	reset = true
 	reset_x = original_translation.x
-	ball.self_modulate = Color.white
+	var mat = ball.get_surface_material(0)
+	mat.albedo_color = Color.white
+	ball.set_surface_material(0, mat)
 	
 
 func _on_GameArea_stop():
@@ -134,6 +136,7 @@ func _on_Ball_body_entered(body):
 			reset_x = original_translation.x
 	elif body.is_in_group("player"):
 		# timer is not active
+		print('hit player')
 		if change_color_timer.is_stopped():
 			set_color(body.get_color(translation))
 			remove_energy(player_energy_loss)

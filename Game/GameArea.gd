@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 signal ball_lost
 signal ball_launched
@@ -11,10 +11,8 @@ signal stop
 const extra_ball_scene = preload("res://Ball/ExtraBall.tscn")
 const shadow_scene = preload("res://Player/Shadow.tscn")
 
-onready var death_box = $'DeathBox'
 onready var player = $'Player'
 onready var shadow_container = $"ShadowContainer"
-
 
 func _on_Board_all_blocks_destroyed():
 	emit_signal("all_blocks_destroyed")
@@ -45,18 +43,20 @@ func _reset(colors):
 
 
 func _on_Board_ball_powerup_obtained(from_block):
-	var new_ball = extra_ball_scene.instance()
-	new_ball.name = "PowerUpBall"
-	new_ball.position = from_block.position
-	connect("reset", new_ball, "_on_GameArea_reset")
-	connect("stop", new_ball, "_on_GameArea_stop")
-	death_box.connect("body_entered", new_ball, "_on_DeathBox_body_entered")
-	add_child(new_ball)
-	new_ball.launch(Vector2.DOWN)
+#	var new_ball = extra_ball_scene.instance()
+#	new_ball.name = "PowerUpBall"
+#	new_ball.position = from_block.position
+#	connect("reset", new_ball, "_on_GameArea_reset")
+#	connect("stop", new_ball, "_on_GameArea_stop")
+#	death_box.connect("body_entered", new_ball, "_on_DeathBox_body_entered")
+#	add_child(new_ball)
+#	new_ball.launch(Vector2.DOWN)
+	print("ball power up unimplemented")
 
 
 func _on_Board_shadow_powerup_obtained():
-	var shadow = shadow_scene.instance()
-	shadow.position = player.position
-	# add to specific container so it renders behind player
-	shadow_container.add_child(shadow)
+#	var shadow = shadow_scene.instance()
+#	shadow.position = player.position
+#	# add to specific container so it renders behind player
+#	shadow_container.add_child(shadow)
+	print("shadow power up unimplemented")

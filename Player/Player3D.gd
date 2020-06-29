@@ -144,28 +144,32 @@ func _on_GameArea_reset(c):
 	
 
 func get_color(p):
-	var dif = translation - p
+	var dif = p - translation
 	
 	var deg
 	if dif.x == 0:
 		deg = 90.0
 	else:
-		deg = rad2deg(atan(dif.y / dif.x))
+		deg = abs(rad2deg(atan(dif.y / dif.x)))
 	
+#	print("p %s | t %s" % [p, translation])
+#	print('deg %s' % deg)
 	# start off in 2nd quadrant
 	# check if were in other three
-	if p.x > translation.x and p.y <= translation.y:
-		# 1st quadrant
-		deg = 180.0 - abs(deg)
-	elif p.x <= translation.x and p.y > translation.y:
+	if p.x > translation.x and p.y > translation.y:
+		deg = 180.0 - deg
+	elif p.x < translation.x and p.y > translation.y:
+		# 2nd quadrant
+		deg = deg
+	elif p.x < translation.x and p.y < translation.y:
 		# 3rd quadrant
-		deg = 360.0 - abs(deg)
-	elif p.x > translation.x and p.y > translation.y:
+		deg = 360.0 - deg
+	elif p.x > translation.x and p.y < translation.y:
 		# 4th quadrant
 		deg = 180 + deg
 		
-	deg = int(deg - rotation_degrees) % 360
+	deg = int(deg + rotation_degrees.z) % 360
 	
 	var index = floor(deg / 60.0)
-	print("deg %s | index %d" % [deg, index])
+#	print("deg %s | index %d" % [deg, index])
 	return colors[index]

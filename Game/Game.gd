@@ -135,3 +135,7 @@ func _on_UI_restart():
 
 func _on_UI_game_mode_change(mode):
 	game_mode = mode
+
+
+func _on_GameArea_stop():
+	pass # Replace with function body.
