@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Ball/Ball3D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=2]
 [ext_resource path="res://Game/GameArea.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/BlockSpawner3D.gd" type="Script" id=4]
 [ext_resource path="res://Game/GameUI.tscn" type="PackedScene" id=6]
@@ -26,8 +25,6 @@ speed = 50.0
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 50, 0 )
-physics_material_override = ExtResource( 2 )
-gravity_scale = 0.0
 
 [node name="Board" type="Spatial" parent="."]
 script = ExtResource( 4 )

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Ball/Disk.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Ball/Ball3D.gd" type="Script" id=2]
+[ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -11,8 +12,11 @@ radius = 2.0
 [node name="Ball" type="RigidBody" groups=[
 "balls",
 ]]
+mass = 0.102041
+physics_material_override = ExtResource( 3 )
+gravity_scale = 0.0
 continuous_cd = true
-contacts_reported = 1
+contacts_reported = 3
 contact_monitor = true
 can_sleep = false
 axis_lock_linear_z = true
@@ -20,6 +24,8 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource( 2 )
+max_speed = 40
+min_speed = 20
 
 [node name="Visuals" type="Spatial" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )

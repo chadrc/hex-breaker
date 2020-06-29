@@ -9,7 +9,7 @@ export (int) var max_speed = 60
 export (int) var min_speed = 15
 export (float) var min_y_velocity = 10.0
 export (int) var max_energy = 100
-export (float) var energy_per_tick = .5
+export (float) var energy_per_tick = .1
 export (int) var player_energy_loss = 10
 export (int) var block_energy_loss = 20
 
@@ -125,6 +125,7 @@ func _on_GameArea_stop():
 
 
 func _on_Ball_body_entered(body):
+	print("ball hit %s" % body.name)
 	if body.is_in_group("blocks"):
 		if body.get_color() == color:
 			body.destroy()
@@ -136,7 +137,6 @@ func _on_Ball_body_entered(body):
 			reset_x = original_translation.x
 	elif body.is_in_group("player"):
 		# timer is not active
-		print('hit player')
 		if change_color_timer.is_stopped():
 			set_color(body.get_color(translation))
 			remove_energy(player_energy_loss)
