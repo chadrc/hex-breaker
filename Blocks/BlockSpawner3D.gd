@@ -23,7 +23,7 @@ var all_blocks = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	initial_pos = base_block.translation
+	initial_pos = Vector3(50.0, 85.0, 0.0)
 	# disable and hide base block 
 	base_block.hide()
 	base_block.set_process(false)
@@ -55,21 +55,21 @@ func _create_board(colors):
 		top = max(point.z, top)
 		bottom = min(point.z, bottom)
 		
-	print("left %s | right %s | top %s | bottom %s" % [left, right, top, bottom])
+#	print("left %s | right %s | top %s | bottom %s" % [left, right, top, bottom])
 	
 	var block_width = abs(left - right) * base_block.scale.x
 	var block_height = abs(bottom - top) * base_block.scale.y
-	print("bwidth %s | bheight %s" % [block_width, block_height])
+#	print("bwidth %s | bheight %s" % [block_width, block_height])
 	# height of rectangle inside hexagon
 	var block_inner_height = tan(deg2rad(30)) * (block_width / 2) * 2
 	# inner height plus top triangle of hexagon
 	var additional_height = block_inner_height + ((block_height - block_inner_height) / 2)
 	
-	var board_width = win_width - side_padding * 2
-	var board_height = initial_pos.y - top_padding
+	var board_width = 75.0
+	var board_height = 40.0
 	
-	print("block translation %s" % base_block.translation.y)
-	print("inner height %s | additional %s | boardw %s | boardh %s" % [block_inner_height, additional_height, board_width, board_height])
+#	print("block translation %s" % base_block.translation.y)
+#	print("inner height %s | additional %s | boardw %s | boardh %s" % [block_inner_height, additional_height, board_width, board_height])
 	
 	var block_count = floor(board_width / block_width)
 	var row_count = floor(board_height / additional_height)
@@ -108,6 +108,8 @@ func _create_board(colors):
 			row_first = Vector3(off_first.x, off_first.y - y_offset, 0.0)
 			row_block_count = off_block_count
 		
+		print('off %s' % (r % 2))
+		print('row count %s' % row_block_count)
 		for i in range(row_block_count):
 			# generate block board
 			var new_pos = Vector3(row_first.x + block_width * i, row_first.y, 0.0)

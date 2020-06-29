@@ -29,10 +29,6 @@ ball_path = NodePath("../Ball")
 [node name="Block" parent="BlockSpawner" instance=ExtResource( 10 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 50, 75, 0 )
 
-[node name="Block2" parent="BlockSpawner" instance=ExtResource( 10 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 50, 75, 0 )
-visible = false
-
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
 
 [node name="Camera" type="Camera" parent="."]
