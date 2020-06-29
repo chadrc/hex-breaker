@@ -1,20 +1,21 @@
-extends Node2D
+extends MeshInstance
 
 signal piece_touched
-
-onready var sprite = $"Sprite"
 
 var color = HexColor.Red
 
 
 func _ready():
-	sprite.self_modulate = HexColor.color_for(color)
+	var mat = get_surface_material(0)
+	mat.albedo_color = HexColor.color_for(color)
+	set_surface_material(0, mat)
 
 
 func set_color(c):
 	color = c
-	if sprite:
-		sprite.self_modulate = HexColor.color_for(c)
+	var mat = get_surface_material(0)
+	mat.albedo_color = HexColor.color_for(color)
+	set_surface_material(0, mat)
 
 
 func _on_HexPiece_body_entered(body):

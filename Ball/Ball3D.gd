@@ -63,7 +63,6 @@ func _process(_delta):
 		
 	if (translation.x <= 0.0 || translation.x >= 100.0
 		|| translation.y <= -20.0 || translation.y >= 100.0):
-		print("lost")
 		reset = true
 		reset_x = original_translation.x
 		emit_signal("lost")
@@ -72,7 +71,6 @@ func _process(_delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
 	if reset:
-		print("resetting")
 		previous_dir = Vector3(0, -1, 0)
 		state.transform = Transform2D(0, Vector2(reset_x, original_translation.y))
 		linear_velocity = Vector3.ZERO

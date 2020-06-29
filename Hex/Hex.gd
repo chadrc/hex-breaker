@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 signal piece_touched
 

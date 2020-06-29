@@ -16,7 +16,7 @@ export (float) var boost_duration = .5
 export (float) var boost_cooldown = 5
 export (float) var recall_cooldown = 15
 
-onready var hex = $'Hex'
+onready var hex = $'Visuals'
 
 var start_rotation = null
 var target_rotation = null
