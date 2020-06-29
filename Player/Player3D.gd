@@ -38,6 +38,7 @@ var recall_cooldown_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	current_speed = speed
 	add_to_group("player")
 
 
@@ -71,6 +72,7 @@ func _process(delta):
 			emit_signal("boost_cooldown_tick", boost_cooldown_time, boost_cooldown)
 	else:
 		if Input.is_action_just_pressed("game_ability_boost"):
+			print("current %s | speed %s" % [current_speed, speed])
 			current_speed = boost_speed
 			boosting = true
 			boost_on_cooldown = true
@@ -80,6 +82,7 @@ func _process(delta):
 		if boost_time >= boost_duration:
 			boosting = false
 			current_speed = speed
+			print("speed %s" % speed)
 			boost_time = 0
 			
 	# Recall Ability

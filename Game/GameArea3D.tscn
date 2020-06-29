@@ -20,6 +20,7 @@ extents = Vector3( 50, 5, 5 )
 [node name="GameArea" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
+speed = 50.0
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 50, 0 )
