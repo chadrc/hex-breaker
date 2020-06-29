@@ -82,7 +82,6 @@ func _process(delta):
 		if boost_time >= boost_duration:
 			boosting = false
 			current_speed = speed
-			print("speed %s" % speed)
 			boost_time = 0
 			
 	# Recall Ability
@@ -119,6 +118,8 @@ func _physics_process(delta):
 #	elif v.y < 0 and translation.y > lower_limit:
 #		v.y = 0
 
+	# lock the z axis
+	translation = Vector3(translation.x, translation.y, 0.0)
 	move_and_slide(v.normalized() * current_speed)
 
 
