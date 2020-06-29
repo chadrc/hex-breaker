@@ -15,8 +15,7 @@ var has_shadow_powerup = false
 func _ready():
 	add_to_group("blocks")
 	var mat = fill.get_surface_material(0)
-	mat.albedo_color = HexColor.color_for(HexColor.Blue)
-	print(mat.albedo_color)
+	mat.albedo_color = HexColor.color_for(color)
 	fill.set_surface_material(0, mat)
 	
 	ball_power_up.visible = has_ball_powerup
@@ -27,10 +26,12 @@ func get_color():
 	return color
 
 
-func set_single_color(c):
+func set_color(c):
 	color = c
 	if fill:
-		fill.mesh.surface_get_material(0).albedo_color = HexColor.color_for(color)
+		var mat = fill.get_surface_material(0)
+		mat.albedo_color = HexColor.color_for(color)
+		fill.set_surface_material(0, mat)
 
 
 func destroy():

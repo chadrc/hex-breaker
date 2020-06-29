@@ -13,7 +13,7 @@ export (float) var energy_per_tick = .5
 export (int) var player_energy_loss = 10
 export (int) var block_energy_loss = 20
 
-onready var ball = $"Visuals"
+onready var ball = $"Visuals/Disk"
 onready var energy_timer = $'EnergyTimer'
 onready var launch_timer = $'LaunchTimer'
 onready var change_color_timer = $'ChangeColorTimer'
@@ -30,7 +30,9 @@ var extra = false
 
 func set_color(c):
 	color = c
-	ball.self_modulate = HexColor.color_for(c)
+	var mat = ball.get_surface_material(0)
+	mat.albedo_color = HexColor.color_for(color)
+	ball.set_surface_material(0, mat)
 		
 		
 func launch(dir):
