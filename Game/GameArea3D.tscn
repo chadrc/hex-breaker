@@ -62,4 +62,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 100, 0 )
 shape = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.109804, 0.993953, 0, -0.993953, -0.109804, 0, 2.49256, 0 )
+transform = Transform( 1, 0, 0, 0, 0.20996, 0.97771, 0, -0.97771, 0.20996, 0, 2.49256, 0 )
