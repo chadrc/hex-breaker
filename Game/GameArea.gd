@@ -9,10 +9,9 @@ signal reset
 signal stop
 
 const extra_ball_scene = preload("res://Ball/ExtraBall3D.tscn")
-const shadow_scene = preload("res://Player/Shadow.tscn")
+const shadow_scene = preload("res://Player/Shadow3D.tscn")
 
 onready var player = $'Player'
-onready var shadow_container = $"ShadowContainer"
 
 func _on_Board_all_blocks_destroyed():
 	emit_signal("all_blocks_destroyed")
@@ -53,8 +52,7 @@ func _on_Board_ball_powerup_obtained(from_block):
 
 
 func _on_Board_shadow_powerup_obtained():
-#	var shadow = shadow_scene.instance()
-#	shadow.position = player.position
-#	# add to specific container so it renders behind player
-#	shadow_container.add_child(shadow)
-	print("shadow power up unimplemented")
+	var shadow = shadow_scene.instance()
+	shadow.translation = player.translation
+	# add to specific container so it renders behind player
+	add_child(shadow)
