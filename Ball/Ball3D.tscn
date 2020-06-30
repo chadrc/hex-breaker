@@ -26,9 +26,9 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource( 2 )
-initial_speed = 30
+initial_speed = 35
 max_speed = 50
-min_speed = 30
+min_speed = 35
 
 [node name="Visuals" type="Spatial" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )

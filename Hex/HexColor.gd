@@ -12,8 +12,8 @@ enum {
 const i = .8 	# intensity
 const h = i / 2 # half intensity
 
-static func color_for(h):
-	match h:
+static func color_for(c):
+	match c:
 		Red:
 			return Color(i, .0, .0, 1.0)
 		Orange:
