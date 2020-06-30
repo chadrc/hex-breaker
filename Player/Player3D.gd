@@ -7,8 +7,6 @@ signal boost_cooldown_end
 signal recall_cooldown_tick
 signal recall_cooldown_end
 
-export (int) var ceiling = 200
-export (int) var sub_amount = 50
 export (float) var speed = 50
 export (float) var rotation_duration = .1
 export (int) var boost_speed = 800
@@ -109,14 +107,6 @@ func _physics_process(delta):
 		v.y += 1
 	if Input.is_action_pressed("ui_down"):
 		v.y -= 1
-	
-	var win_height = ProjectSettings.get_setting("display/window/size/height")
-#	var upper_limit = win_height - ceiling
-#	var lower_limit = win_height + sub_amount
-#	if v.y > 0 and translation.y < upper_limit:
-#		v.y = 0
-#	elif v.y < 0 and translation.y > lower_limit:
-#		v.y = 0
 
 	# lock the z axis
 	translation = Vector3(translation.x, translation.y, 0.0)

@@ -125,7 +125,6 @@ func _on_GameArea_stop():
 
 
 func _on_Ball_body_entered(body):
-	print("ball hit %s" % body.name)
 	if body.is_in_group("blocks"):
 		if body.get_color() == color:
 			body.destroy()
