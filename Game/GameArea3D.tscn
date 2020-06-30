@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Ball/Ball3D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/Stage.gd" type="Script" id=2]
 [ext_resource path="res://Game/GameArea.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/BlockSpawner3D.gd" type="Script" id=4]
 [ext_resource path="res://Game/GameUI.tscn" type="PackedScene" id=6]
@@ -14,10 +15,10 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 0.75
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 5, 50, 5 )
+extents = Vector3( 1, 50, 5 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 50, 5, 5 )
+extents = Vector3( 50, 1, 5 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 50, 50, 1 )
@@ -45,24 +46,26 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 50, 3 )
 environment = SubResource( 1 )
 projection = 1
 size = 100.0
+script = ExtResource( 2 )
 
-[node name="Borders" type="RigidBody" parent="." groups=[
+[node name="Borders" type="RigidBody" parent="Camera" groups=[
 "walls",
 ]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -50, -3 )
 mode = 1
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
 
-[node name="Left" type="CollisionShape" parent="Borders"]
+[node name="Left" type="CollisionShape" parent="Camera/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )
 shape = SubResource( 2 )
 
-[node name="Right" type="CollisionShape" parent="Borders"]
+[node name="Right" type="CollisionShape" parent="Camera/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 50, 0 )
 shape = SubResource( 2 )
 
-[node name="Top" type="CollisionShape" parent="Borders"]
+[node name="Top" type="CollisionShape" parent="Camera/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 100, 0 )
 shape = SubResource( 3 )
 
@@ -79,9 +82,9 @@ shape = SubResource( 4 )
 [node name="Ceiling" type="CollisionShape" parent="PlayerLimits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 85, 0 )
 shape = SubResource( 4 )
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]
 [connection signal="boost_cooldown_tick" from="Player" to="GameUI" method="_on_Player_boost_cooldown_tick"]
