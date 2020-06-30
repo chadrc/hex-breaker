@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Ball/Ball3D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game/Stage.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Blocks/BlockSpawner3D.gd" type="Script" id=4]
 [ext_resource path="res://common/white_pixel.jpg" type="Texture" id=5]
 [ext_resource path="res://Game/GameUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Ball/Ball_PhysicsMaterial.tres" type="PhysicsMaterial" id=7]
 [ext_resource path="res://Player/Player3D.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Blocks/Block3D.tscn" type="PackedScene" id=10]
 
@@ -54,9 +55,8 @@ script = ExtResource( 2 )
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -50, -3 )
 mode = 1
+physics_material_override = ExtResource( 7 )
 gravity_scale = 0.0
-contacts_reported = 1
-contact_monitor = true
 
 [node name="Left" type="CollisionShape" parent="Camera/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )
@@ -87,6 +87,7 @@ texture = ExtResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.20996, 0.97771, 0, -0.97771, 0.20996, 0, 2.49256, 0 )
+light_energy = 0.5
 
 [node name="PlayerLimits" type="StaticBody" parent="."]
 collision_layer = 8
@@ -98,8 +99,8 @@ shape = SubResource( 4 )
 [node name="Ground" type="CollisionShape" parent="PlayerLimits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -60, 0 )
 shape = SubResource( 4 )
-[connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]

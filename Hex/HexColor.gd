@@ -9,20 +9,23 @@ enum {
 	Purple
 }
 
+const i = .8 	# intensity
+const h = i / 2 # half intensity
+
 static func color_for(h):
 	match h:
 		Red:
-			return Color.red
+			return Color(i, .0, .0, 1.0)
 		Orange:
-			return Color.orange
+			return Color(i, h, .0, 1.0)
 		Yellow:
-			return Color.yellow
+			return Color(i, i, .0, 1.0)
 		Green:
-			return Color.green
+			return Color(.0, i, .0, 1.0)
 		Blue:
-			return Color.blue
+			return Color(.0, .0, i, 1.0)
 		Purple:
-			return Color.purple
+			return Color(h, .0, i, 1.0)
 			
 
 static func random_hex_color():

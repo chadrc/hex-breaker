@@ -14,12 +14,7 @@ var has_shadow_powerup = false
 
 func _ready():
 	var mat = SpatialMaterial.new()
-	var c = HexColor.color_for(color)
-	c.a = 1.0
 	mat.albedo_color = HexColor.color_for(color)
-	mat.flags_transparent = true
-	mat.params_blend_mode = mat.BLEND_MODE_MUL
-	mat.distance_fade_mode = mat.DISTANCE_FADE_PIXEL_ALPHA
 	fill.set_surface_material(0, mat)
 	
 	ball_power_up.visible = has_ball_powerup
