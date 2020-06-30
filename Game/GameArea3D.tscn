@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Ball/Ball3D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game/Stage.gd" type="Script" id=2]
 [ext_resource path="res://Game/GameArea.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/BlockSpawner3D.gd" type="Script" id=4]
+[ext_resource path="res://common/white_pixel.jpg" type="Texture" id=5]
 [ext_resource path="res://Game/GameUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Player3D.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Blocks/Block3D.tscn" type="PackedScene" id=10]
@@ -61,13 +62,28 @@ contact_monitor = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )
 shape = SubResource( 2 )
 
+[node name="Sprite3D" type="Sprite3D" parent="Camera/Borders/Left"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 1, -24, 0, 0 )
+pixel_size = 1.0
+texture = ExtResource( 5 )
+
 [node name="Right" type="CollisionShape" parent="Camera/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 50, 0 )
 shape = SubResource( 2 )
 
+[node name="Sprite3D" type="Sprite3D" parent="Camera/Borders/Right"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 1, 24, 0, 0 )
+pixel_size = 1.0
+texture = ExtResource( 5 )
+
 [node name="Top" type="CollisionShape" parent="Camera/Borders"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 100, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 99.5, 0 )
 shape = SubResource( 3 )
+
+[node name="Sprite3D" type="Sprite3D" parent="Camera/Borders/Top"]
+transform = Transform( 100, 0, 0, 0, 50, 0, 0, 0, 1, 0, 24, 0 )
+pixel_size = 1.0
+texture = ExtResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.20996, 0.97771, 0, -0.97771, 0.20996, 0, 2.49256, 0 )
@@ -75,15 +91,15 @@ transform = Transform( 1, 0, 0, 0, 0.20996, 0.97771, 0, -0.97771, 0.20996, 0, 2.
 [node name="PlayerLimits" type="StaticBody" parent="."]
 collision_layer = 8
 
-[node name="Ground" type="CollisionShape" parent="PlayerLimits"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -50, 0 )
-shape = SubResource( 4 )
-
 [node name="Ceiling" type="CollisionShape" parent="PlayerLimits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 85, 0 )
 shape = SubResource( 4 )
-[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+
+[node name="Ground" type="CollisionShape" parent="PlayerLimits"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -60, 0 )
+shape = SubResource( 4 )
 [connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="ball_hit_player" from="Player" to="." method="_on_Player_ball_hit_player"]
 [connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]
