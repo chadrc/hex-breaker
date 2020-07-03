@@ -27,10 +27,6 @@ func _on_Ball_launched():
 
 func _on_Ball_lost():
 	emit_signal("ball_lost")
-
-
-func _on_Player_ball_hit_player():
-	emit_signal("ball_hit_player")
 	
 
 func _stop(_results):
@@ -56,3 +52,7 @@ func _on_Board_shadow_powerup_obtained():
 	shadow.translation = player.translation
 	# add to specific container so it renders behind player
 	add_child(shadow)
+
+
+func _on_Ball_ball_hit_player():
+	emit_signal("ball_hit_player")

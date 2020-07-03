@@ -1,6 +1,5 @@
 extends KinematicBody
 
-signal ball_hit_player
 signal recall_ability_invoked
 signal boost_cooldown_tick
 signal boost_cooldown_end
@@ -111,11 +110,6 @@ func _physics_process(delta):
 	# lock the z axis
 	translation = Vector3(translation.x, translation.y, 0.0)
 	move_and_slide(v.normalized() * current_speed)
-
-
-func _on_Hex_piece_touched(body, color):
-	if body.is_in_group("balls"):
-		emit_signal("ball_hit_player")
 
 
 func _on_GameArea_reset(c):

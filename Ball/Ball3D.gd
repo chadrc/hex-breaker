@@ -2,6 +2,7 @@ extends RigidBody
 
 signal launched
 signal lost
+signal ball_hit_player
 
 export (int) var initial_speed = 25
 export (int) var max_speed = 60
@@ -107,6 +108,8 @@ func _on_Ball_body_entered(body):
 		if change_color_timer.is_stopped():
 			set_color(body.get_color(translation))
 			change_color_timer.start()
+		
+		emit_signal("ball_hit_player")
 		
 
 func _on_Player_recall_ability_invoked(player_pos):
