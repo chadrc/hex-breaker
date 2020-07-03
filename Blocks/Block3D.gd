@@ -42,3 +42,10 @@ func destroy():
 func _on_DeathTimer_timeout():
 	queue_free()
 	emit_signal("destroyed", self)
+
+
+func _on_Area_body_entered(body):
+	print('body entered %s' % body.name)
+	if body.is_in_group("balls") and body.get_color() == color:
+		print('ball entered')
+		destroy()

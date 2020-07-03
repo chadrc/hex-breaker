@@ -25,8 +25,12 @@ func set_color(c):
 	var mat = ball.get_surface_material(0)
 	mat.albedo_color = HexColor.color_for(color)
 	ball.set_surface_material(0, mat)
-		
-		
+	
+
+func get_color():
+	return color
+	
+	
 func launch(dir):
 	linear_velocity = dir * initial_speed
 	unwait()
@@ -78,6 +82,10 @@ func _integrate_forces(state):
 #		state.linear_velocity.y = -min_y_velocity
 #	elif y < min_y_velocity and y > 0:
 #		state.linear_velocity.y = min_y_velocity
+
+#	if get_colliding_bodies().size() > 0:
+#		for body in get_colliding_bodies():
+#			print("collided with %s" % body.name)
 	
 	if state.linear_velocity.length() > max_speed:
 		state.linear_velocity = state.linear_velocity.normalized() * max_speed
@@ -100,9 +108,13 @@ func _on_GameArea_stop():
 
 
 func _on_Ball_body_entered(body):
+	print("ball hit %s" % body.name)
 	if body.is_in_group("blocks"):
-		if body.get_color() == color:
-			body.destroy()
+		pass
+#		print("block hit %s" % body.get_color())
+#		if body.get_color() == color:
+#			print("block destroyed")
+#			body.destroy()
 	elif body.is_in_group("player"):
 		# timer is not active
 		if change_color_timer.is_stopped():

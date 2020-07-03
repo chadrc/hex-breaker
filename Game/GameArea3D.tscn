@@ -54,6 +54,8 @@ script = ExtResource( 2 )
 "walls",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -50, -3 )
+collision_layer = 8
+collision_mask = 6
 physics_material_override = ExtResource( 7 )
 
 [node name="Left" type="CollisionShape" parent="Camera/Borders"]
@@ -88,7 +90,8 @@ transform = Transform( 1, 0, 0, 0, 0.20996, 0.97771, 0, -0.97771, 0.20996, 0, 2.
 light_energy = 0.5
 
 [node name="PlayerLimits" type="StaticBody" parent="."]
-collision_layer = 8
+collision_layer = 16
+collision_mask = 2
 
 [node name="Ceiling" type="CollisionShape" parent="PlayerLimits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 85, 0 )
@@ -97,9 +100,9 @@ shape = SubResource( 4 )
 [node name="Ground" type="CollisionShape" parent="PlayerLimits"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, -60, 0 )
 shape = SubResource( 4 )
-[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Player" method="_on_GameArea_reset"]
 [connection signal="reset" from="." to="Board" method="_on_GameArea_reset"]
+[connection signal="reset" from="." to="Ball" method="_on_GameArea_reset"]
 [connection signal="boost_cooldown_end" from="Player" to="GameUI" method="_on_Player_boost_cooldown_end"]
 [connection signal="boost_cooldown_tick" from="Player" to="GameUI" method="_on_Player_boost_cooldown_tick"]
 [connection signal="recall_ability_invoked" from="Player" to="Ball" method="_on_Player_recall_ability_invoked"]

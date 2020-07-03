@@ -103,6 +103,15 @@ game_ability_bullet_time={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Blocks"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Balls"
+3d_physics/layer_4="Bounds"
+3d_physics/layer_5="PlayerLimtis"
+3d_physics/layer_6="Shadow"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

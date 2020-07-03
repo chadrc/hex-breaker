@@ -18,6 +18,10 @@ func set_color(c):
 	visual.set_surface_material(0, mat)
 
 
+func get_color():
+	return color
+
+
 func launch(dir):
 	linear_velocity = dir * initial_speed
 	contact_monitor = true
